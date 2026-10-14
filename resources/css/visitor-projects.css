@@ -1,0 +1,1306 @@
+/* =========================================================
+   VISITOR PROJECTS — FULL STYLESHEET
+   File ini menggantikan seluruh isi css/visitor-projects.css
+========================================================= */
+
+.visitor-projects-section,
+.visitor-projects-archive-modal-backdrop {
+    --archive-accent: #7b293d;
+    --archive-accent-hover: #91374e;
+    --vp-text: #ffffff;
+    --vp-muted: rgba(255, 255, 255, 0.64);
+    --vp-pink: #e4a9b8;
+    --vp-border: rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================================
+   SECTION & INTRO
+========================================================= */
+
+.visitor-projects-section {
+    position: relative;
+    width: 100%;
+    padding: 110px 24px 130px;
+    color: var(--vp-text);
+    box-sizing: border-box;
+}
+
+.visitor-projects-section *,
+.visitor-projects-section *::before,
+.visitor-projects-section *::after {
+    box-sizing: border-box;
+}
+
+.visitor-projects-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.visitor-projects-intro {
+    max-width: 850px;
+    margin: 0 auto 64px;
+    text-align: center;
+}
+
+.visitor-projects-eyebrow {
+    margin: 0 0 10px;
+    color: var(--vp-pink);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2.4px;
+    line-height: 1.5;
+}
+
+.visitor-projects-intro h2 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.5px;
+}
+
+.visitor-projects-intro-text {
+    max-width: 640px;
+    margin: 16px auto 0;
+    color: var(--vp-muted);
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* =========================================================
+   LIST & ITEM
+========================================================= */
+
+.visitor-projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 96px;
+}
+
+.visitor-projects-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    align-items: center;
+    gap: 56px;
+}
+
+.visitor-projects-item--reverse .visitor-projects-content {
+    order: 2;
+}
+
+.visitor-projects-item--reverse .visitor-projects-gallery {
+    order: 1;
+}
+
+.visitor-projects-content {
+    min-width: 0;
+}
+
+.visitor-projects-gallery {
+    min-width: 0;
+}
+
+.visitor-projects-number {
+    margin: 0 0 6px;
+    color: rgba(255, 255, 255, 0.12);
+    font-size: clamp(54px, 6vw, 78px);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+    user-select: none;
+}
+
+/* Heading */
+
+.visitor-projects-heading {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.visitor-projects-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 50px;
+    height: 50px;
+    border: 1px solid rgba(220, 143, 163, 0.22);
+    border-radius: 15px;
+    color: #f0c1ce;
+    background: rgba(123, 41, 61, 0.34);
+}
+
+.visitor-projects-heading-text {
+    min-width: 0;
+}
+
+.visitor-projects-type {
+    margin: 0 0 4px;
+    color: var(--vp-pink);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+
+.visitor-projects-heading h3 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(28px, 3.4vw, 42px);
+    font-weight: 800;
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+}
+
+.visitor-projects-subtitle {
+    margin: 0 0 18px;
+    color: #f2d8df;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+/* Meta pills */
+
+.visitor-projects-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.visitor-projects-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 15px;
+    border: 1px solid var(--vp-border);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.88);
+    background: rgba(255, 255, 255, 0.05);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.visitor-projects-meta-item svg {
+    flex: 0 0 auto;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.visitor-projects-featured {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 15px;
+    border: 1px solid rgba(220, 143, 163, 0.28);
+    border-radius: 999px;
+    color: #ffe4ea;
+    background: rgba(123, 41, 61, 0.55);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.visitor-projects-description p {
+    margin: 0 0 24px;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 15px;
+    line-height: 1.85;
+    overflow-wrap: anywhere;
+}
+
+/* Technologies */
+
+.visitor-projects-technologies {
+    margin-bottom: 24px;
+}
+
+.visitor-projects-label {
+    margin: 0 0 12px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+}
+
+.visitor-projects-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.visitor-projects-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 13px;
+    border: 1px solid var(--vp-border);
+    border-radius: 999px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.06);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+/* Actions (link ikon) */
+
+.visitor-projects-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+}
+
+.visitor-projects-link {
+    display: inline-grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--vp-border);
+    border-radius: 50%;
+    color: #f0d5dd;
+    background: rgba(255, 255, 255, 0.04);
+    text-decoration: none;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.visitor-projects-link:hover {
+    border-color: var(--archive-accent);
+    color: #fff;
+    background: rgba(123, 41, 61, 0.45);
+}
+
+.visitor-projects-link:focus-visible {
+    outline: 2px solid #d98b9d;
+    outline-offset: 3px;
+}
+
+/* Tombol umum (dipakai pada state error) */
+
+.visitor-projects-detail-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    color: #fff;
+    background: var(--archive-accent);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.visitor-projects-detail-button:hover {
+    background: var(--archive-accent-hover);
+}
+
+.visitor-projects-detail-button:focus-visible {
+    outline: 2px solid #d98b9d;
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   LOADING / ERROR / EMPTY
+========================================================= */
+
+.visitor-projects-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 260px;
+    color: var(--vp-muted);
+    font-size: 14px;
+}
+
+.visitor-projects-loading-icon {
+    animation: visitorProjectsSpin 1s linear infinite;
+}
+
+.visitor-projects-error,
+.visitor-projects-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 56px 24px;
+    border: 1px dashed rgba(255, 255, 255, 0.16);
+    border-radius: 22px;
+    color: var(--vp-muted);
+    background: rgba(255, 255, 255, 0.025);
+    text-align: center;
+}
+
+.visitor-projects-error p,
+.visitor-projects-empty p {
+    max-width: 420px;
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.visitor-projects-empty h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 20px;
+}
+
+@keyframes visitorProjectsSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================================
+   KARTU ARSIP (SISI KANAN)
+========================================================= */
+
+.visitor-projects-archive-card {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 22px;
+    background: rgba(20, 13, 16, 0.92);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.16);
+    transition:
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.visitor-projects-archive-card:hover {
+    border-color: var(--archive-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+}
+
+.visitor-projects-archive-card-button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+}
+
+.visitor-projects-archive-card-button:focus-visible,
+.visitor-projects-archive-modal-close:focus-visible,
+.visitor-projects-archive-close:focus-visible {
+    outline: 2px solid #d98b9d;
+    outline-offset: 4px;
+}
+
+/* Preview gambar */
+
+.visitor-projects-archive-preview {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: repeat(2, minmax(90px, 1fr));
+    gap: 6px;
+    height: 260px;
+    padding: 8px;
+    overflow: hidden;
+    background: #211419;
+}
+
+.visitor-projects-archive-preview-item {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #281920;
+}
+
+.visitor-projects-archive-preview-item--1 {
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
+
+.visitor-projects-archive-preview-item--2 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.visitor-projects-archive-preview-item--3 {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* 1 gambar: penuh */
+.visitor-projects-archive-preview--1 {
+    grid-template-columns: 1fr;
+}
+
+/* 2 gambar: dua kolom sama tinggi */
+.visitor-projects-archive-preview--2 .visitor-projects-archive-preview-item--2 {
+    grid-row: 1 / 3;
+}
+
+.visitor-projects-archive-preview-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+    transition: transform 0.45s ease;
+}
+
+.visitor-projects-archive-card:hover .visitor-projects-archive-preview-item img {
+    transform: scale(1.045);
+}
+
+.visitor-projects-archive-preview--empty {
+    display: flex;
+    height: 180px;
+}
+
+.visitor-projects-archive-preview-empty {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+}
+
+.visitor-projects-archive-preview-shade {
+    position: absolute;
+    inset: 8px;
+    pointer-events: none;
+    border-radius: 12px;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 7, 9, 0.12) 0%,
+        transparent 35%,
+        rgba(10, 7, 9, 0.38) 100%
+    );
+}
+
+.visitor-projects-archive-preview-label,
+.visitor-projects-archive-preview-count {
+    position: absolute;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    background: rgba(18, 13, 15, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.visitor-projects-archive-preview-label {
+    top: 20px;
+    left: 20px;
+    padding: 9px 13px;
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.visitor-projects-archive-preview-count {
+    right: 20px;
+    bottom: 20px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.visitor-projects-archive-preview-open {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 50%;
+    color: #fff;
+    background: var(--archive-accent);
+    transition: transform 0.25s ease;
+}
+
+.visitor-projects-archive-card:hover .visitor-projects-archive-preview-open {
+    transform: translate(2px, -2px);
+}
+
+/* Informasi kartu */
+
+.visitor-projects-archive-card-info {
+    padding: 22px 24px 26px;
+}
+
+.visitor-projects-archive-card-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.visitor-projects-archive-card-title-wrap {
+    min-width: 0;
+}
+
+.visitor-projects-archive-kicker {
+    display: block;
+    margin-bottom: 7px;
+    color: #c98799;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    line-height: 1.5;
+}
+
+.visitor-projects-archive-card-title-wrap h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.visitor-projects-archive-card-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 11px;
+    color: #f0d9df;
+    background: rgba(123, 41, 61, 0.22);
+    transition:
+        color 0.2s ease,
+        background 0.2s ease;
+}
+
+.visitor-projects-archive-card:hover .visitor-projects-archive-card-icon {
+    color: #fff;
+    background: var(--archive-accent);
+}
+
+.visitor-projects-archive-card-description {
+    margin: 12px 0 18px;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.visitor-projects-archive-card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #f0d5dd;
+    font-size: 12px;
+    font-weight: 700;
+    transition: gap 0.2s ease;
+}
+
+.visitor-projects-archive-card:hover .visitor-projects-archive-card-action {
+    gap: 12px;
+}
+
+/* =========================================================
+   MODAL ARSIP
+========================================================= */
+
+.visitor-projects-archive-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-y: auto;
+    background: rgba(8, 5, 7, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: visitorArchiveFadeIn 0.2s ease both;
+}
+
+.visitor-projects-archive-modal-backdrop *,
+.visitor-projects-archive-modal-backdrop *::before,
+.visitor-projects-archive-modal-backdrop *::after {
+    box-sizing: border-box;
+}
+
+.visitor-projects-archive-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(1100px, 100%);
+    max-height: min(88vh, 900px);
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+    color: #fff;
+    background:
+        radial-gradient(circle at top left, rgba(123, 41, 61, 0.15), transparent 36%),
+        #120d0f;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+    animation: visitorArchiveModalIn 0.25s ease both;
+}
+
+/* Header */
+
+.visitor-projects-archive-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 25px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.visitor-projects-archive-modal-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+}
+
+.visitor-projects-archive-modal-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(220, 143, 163, 0.22);
+    border-radius: 14px;
+    color: #f0c1ce;
+    background: rgba(123, 41, 61, 0.27);
+}
+
+.visitor-projects-archive-modal-heading h3 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(20px, 2.4vw, 28px);
+    font-weight: 750;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.visitor-projects-archive-modal-heading p {
+    margin: 7px 0 0;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.visitor-projects-archive-modal-close {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.045);
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.visitor-projects-archive-modal-close:hover {
+    color: #fff;
+    background: var(--archive-accent);
+}
+
+/* Body (scroll) */
+
+.visitor-projects-archive-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 26px 28px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #703344 #1a1215;
+}
+
+.visitor-projects-archive-modal-layout {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1.5fr);
+    align-items: start;
+    gap: 28px;
+}
+
+.visitor-projects-archive-overview {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.visitor-projects-archive-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.visitor-projects-archive-section-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(220, 143, 163, 0.18);
+    border-radius: 12px;
+    color: #e7b0be;
+    background: rgba(123, 41, 61, 0.2);
+}
+
+.visitor-projects-archive-section-heading .visitor-projects-archive-kicker {
+    margin-bottom: 3px;
+}
+
+.visitor-projects-archive-section-heading h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.visitor-projects-archive-subtitle {
+    margin: 20px 0 0;
+    color: #f2d8df;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.visitor-projects-archive-overview-description {
+    margin: 18px 0 20px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 13px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+.visitor-projects-archive-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.visitor-projects-archive-info-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    color: #e7a6b7;
+    background: rgba(123, 41, 61, 0.23);
+}
+
+.visitor-projects-archive-info > div {
+    min-width: 0;
+}
+
+.visitor-projects-archive-info strong {
+    display: block;
+    margin: 0 0 4px;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.visitor-projects-archive-info p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.visitor-projects-archive-tech {
+    margin-top: 22px;
+}
+
+.visitor-projects-archive-tech h5 {
+    margin: 0 0 11px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.visitor-projects-archive-tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.visitor-projects-archive-tech-list .visitor-projects-tag {
+    padding: 6px 10px;
+    border: 1px solid rgba(220, 143, 163, 0.18);
+    border-radius: 7px;
+    color: #e9c2cc;
+    background: rgba(123, 41, 61, 0.16);
+    font-size: 11px;
+}
+
+.visitor-projects-archive-links {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-top: 24px;
+}
+
+.visitor-projects-archive-links .visitor-projects-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    height: auto;
+    padding: 12px 13px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.visitor-projects-archive-links .visitor-projects-link span {
+    flex: 1;
+}
+
+/* Galeri dokumentasi */
+
+.visitor-projects-archive-gallery {
+    min-width: 0;
+}
+
+.visitor-projects-archive-gallery-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.visitor-projects-archive-gallery-count {
+    flex: 0 0 auto;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 24px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.visitor-projects-archive-image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.visitor-projects-archive-image-card {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.025);
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.visitor-projects-archive-image-card:hover {
+    border-color: rgba(201, 112, 137, 0.65);
+    transform: translateY(-2px);
+}
+
+.visitor-projects-archive-image-link {
+    position: relative;
+    display: block;
+    height: 250px;
+    overflow: hidden;
+    background: #211419;
+}
+
+.visitor-projects-archive-image-link img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s ease;
+}
+
+.visitor-projects-archive-image-card:hover .visitor-projects-archive-image-link img {
+    transform: scale(1.04);
+}
+
+.visitor-projects-archive-image-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #fff;
+    background: rgba(14, 8, 11, 0.62);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.visitor-projects-archive-image-card:hover .visitor-projects-archive-image-overlay,
+.visitor-projects-archive-image-link:focus-visible .visitor-projects-archive-image-overlay {
+    opacity: 1;
+}
+
+.visitor-projects-archive-image-card figcaption {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+}
+
+.visitor-projects-archive-image-number {
+    flex: 0 0 auto;
+    color: #d28da0;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.visitor-projects-archive-image-caption {
+    min-width: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.visitor-projects-archive-no-images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 200px;
+    padding: 25px;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    color: rgba(255, 255, 255, 0.45);
+    text-align: center;
+}
+
+.visitor-projects-archive-no-images p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* Footer */
+
+.visitor-projects-archive-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 17px 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.visitor-projects-archive-modal-total {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 12px;
+}
+
+.visitor-projects-archive-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 10px;
+    color: #fff;
+    background: var(--archive-accent);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.visitor-projects-archive-close:hover {
+    background: var(--archive-accent-hover);
+    transform: translateY(-1px);
+}
+
+/* Animasi */
+
+@keyframes visitorArchiveFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes visitorArchiveModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.99);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+    .visitor-projects-item {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 32px;
+    }
+
+    /* Pada layar kecil, konten selalu di atas, kartu di bawah */
+    .visitor-projects-item--reverse .visitor-projects-content,
+    .visitor-projects-item--reverse .visitor-projects-gallery {
+        order: initial;
+    }
+}
+
+@media (max-width: 900px) {
+    .visitor-projects-archive-modal-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .visitor-projects-archive-modal {
+        max-height: 90vh;
+    }
+}
+
+@media (max-width: 600px) {
+    .visitor-projects-section {
+        padding: 80px 16px 90px;
+    }
+
+    .visitor-projects-list {
+        gap: 72px;
+    }
+
+    .visitor-projects-archive-preview {
+        height: 210px;
+    }
+
+    .visitor-projects-archive-card-info {
+        padding: 18px;
+    }
+
+    .visitor-projects-archive-card-title-wrap h4 {
+        font-size: 17px;
+    }
+
+    .visitor-projects-archive-modal-backdrop {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .visitor-projects-archive-modal {
+        width: 100%;
+        max-height: 94dvh;
+        border-radius: 20px 20px 0 0;
+        border-bottom: 0;
+    }
+
+    .visitor-projects-archive-modal-header {
+        padding: 19px 17px;
+        gap: 12px;
+    }
+
+    .visitor-projects-archive-modal-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .visitor-projects-archive-modal-heading h3 {
+        font-size: 19px;
+    }
+
+    .visitor-projects-archive-modal-body {
+        padding: 18px 16px;
+    }
+
+    .visitor-projects-archive-image-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 13px;
+    }
+
+    .visitor-projects-archive-image-link {
+        height: 220px;
+    }
+
+    .visitor-projects-archive-modal-footer {
+        padding: 13px 16px;
+    }
+
+    .visitor-projects-archive-close {
+        padding: 10px 13px;
+        font-size: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .visitor-projects-archive-card,
+    .visitor-projects-archive-card *,
+    .visitor-projects-archive-modal-backdrop,
+    .visitor-projects-archive-modal,
+    .visitor-projects-loading-icon {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   TAMBAHAN: TOMBOL "BACA DETAIL" + MODAL DETAIL + ARSIP LEBAR
+   TEMPELKAN DI PALING BAWAH visitor-projects.css
+   (tidak ada kode lama yang dihapus)
+========================================================= */
+
+/* Deskripsi ringkas: dipotong 4 baris, selengkapnya lewat tombol */
+
+.visitor-projects-description {
+    margin-bottom: 24px;
+}
+
+.visitor-projects-description .visitor-projects-description-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+}
+
+.visitor-projects-readmore {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 9px 16px;
+    border: 1px solid rgba(220, 143, 163, 0.28);
+    border-radius: 999px;
+    color: #f0d5dd;
+    background: rgba(123, 41, 61, 0.28);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        gap 0.2s ease;
+}
+
+.visitor-projects-readmore:hover {
+    gap: 12px;
+    border-color: var(--archive-accent);
+    color: #fff;
+    background: var(--archive-accent);
+}
+
+.visitor-projects-readmore:focus-visible {
+    outline: 2px solid #d98b9d;
+    outline-offset: 3px;
+}
+
+/* Modal detail: sempit, satu kolom */
+
+.visitor-projects-archive-modal--detail {
+    width: min(720px, 100%);
+}
+
+.visitor-projects-archive-modal--detail .visitor-projects-archive-modal-footer {
+    justify-content: flex-end;
+}
+
+.visitor-projects-archive-modal--detail .visitor-projects-archive-overview-description {
+    font-size: 14px;
+    line-height: 2;
+}
+
+/* Modal arsip: hanya galeri, tampil 3 kolom di layar lebar */
+
+.visitor-projects-archive-modal--wide .visitor-projects-archive-image-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+    .visitor-projects-archive-modal--wide .visitor-projects-archive-image-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .visitor-projects-archive-modal--wide .visitor-projects-archive-image-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .visitor-projects-readmore {
+        transition: none;
+    }
+}

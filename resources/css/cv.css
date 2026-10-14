@@ -1,0 +1,574 @@
+/* =========================
+   CV PAGE
+========================= */
+
+.cv-page {
+    min-height: 100vh;
+    display: flex;
+    background: #f5f6f8;
+}
+
+.cv-main {
+    flex: 1;
+    min-width: 0;
+    min-height: 100vh;
+    background: #f5f6f8;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.cv-content {
+    padding: 30px;
+}
+
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+.cv-page-header {
+    margin-bottom: 26px;
+}
+
+.cv-page-header h1 {
+    margin: 0 0 6px;
+    color: #1f2937;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.cv-page-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   ALERT
+========================= */
+
+.cv-alert {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 13px 15px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.cv-alert span {
+    flex: 1;
+}
+
+.cv-alert button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.cv-alert-success {
+    color: #166534;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+
+.cv-alert-success button {
+    color: #166534;
+}
+
+.cv-alert-error {
+    color: #991b1b;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+}
+
+.cv-alert-error button {
+    color: #991b1b;
+}
+
+
+/* =========================
+   SECTION
+========================= */
+
+.cv-section {
+    margin-bottom: 22px;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.035);
+}
+
+
+/* =========================
+   SECTION HEADER
+========================= */
+
+.cv-section-header {
+    margin-bottom: 20px;
+}
+
+.cv-section-header h2 {
+    margin: 0 0 5px;
+    color: #1f2937;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.cv-section-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   LOADING
+========================= */
+
+.cv-loading {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9ca3af;
+    font-size: 13px;
+}
+
+
+/* =========================
+   CURRENT CV
+========================= */
+
+.current-cv-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px;
+    background: #fafafa;
+    border: 1px solid #e5e7eb;
+    border-radius: 9px;
+}
+
+.current-cv-left {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.current-cv-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #f3e8eb;
+    color: #561c24;
+}
+
+.current-cv-info {
+    min-width: 0;
+}
+
+.current-cv-info h3 {
+    margin: 0 0 6px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.current-cv-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+
+/* =========================
+   CV ACTION BUTTONS
+========================= */
+
+.cv-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+
+/* =========================
+   VIEW BUTTON
+========================= */
+
+.view-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border: 1px solid #d9c3c7;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #561c24;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.view-button:hover {
+    background: #f8eef0;
+    border-color: #561c24;
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   DOWNLOAD BUTTON
+========================= */
+
+.download-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 15px;
+    border-radius: 7px;
+    background: #561c24;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.download-button:hover {
+    background: #42151b;
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   EMPTY
+========================= */
+
+.cv-empty {
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    text-align: center;
+    background: #fafafa;
+    border: 1px dashed #d6d8dc;
+    border-radius: 9px;
+}
+
+.cv-empty-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    background: #f3e8eb;
+    color: #561c24;
+}
+
+.cv-empty h3 {
+    margin: 0 0 6px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cv-empty p {
+    max-width: 400px;
+    margin: 0;
+    color: #9ca3af;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   UPLOAD DROPZONE
+========================= */
+
+.upload-section {
+    margin-bottom: 0;
+}
+
+.cv-dropzone {
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    border: 1.5px dashed #d1d5db;
+    border-radius: 9px;
+    background: #fafafa;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.cv-dropzone:hover {
+    border-color: #561c24;
+    background: #fcf8f9;
+}
+
+.cv-dropzone.drag-active {
+    border-color: #561c24;
+    background: #f8eef0;
+}
+
+.cv-dropzone.has-file {
+    border-style: solid;
+    border-color: #c9aeb2;
+    background: #fcf8f9;
+}
+
+
+/* =========================
+   UPLOAD ICON
+========================= */
+
+.upload-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 13px;
+    border-radius: 11px;
+    background: #f3e8eb;
+    color: #561c24;
+}
+
+.cv-dropzone h3 {
+    margin: 0 0 5px;
+    color: #374151;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cv-dropzone > p {
+    margin: 0 0 10px;
+    color: #9ca3af;
+    font-size: 12px;
+}
+
+.file-format {
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+
+/* =========================
+   SELECTED FILE
+========================= */
+
+.selected-file {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.selected-file-icon {
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #f3e8eb;
+    color: #561c24;
+}
+
+.selected-file-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.selected-file-info h3 {
+    margin: 0 0 5px;
+    color: #374151;
+    font-size: 13px;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.selected-file-info p {
+    margin: 0;
+    color: #9ca3af;
+    font-size: 11px;
+}
+
+.remove-file-button {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 7px;
+    background: #f3f4f6;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.remove-file-button:hover {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+
+/* =========================
+   UPLOAD ACTION
+========================= */
+
+.upload-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
+
+.upload-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-width: 105px;
+    padding: 10px 17px;
+    border: none;
+    border-radius: 7px;
+    background: #561c24;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.upload-button:hover:not(:disabled) {
+    background: #42151b;
+    transform: translateY(-1px);
+}
+
+.upload-button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+    .cv-content {
+        padding: 20px;
+    }
+
+    .cv-page-header h1 {
+        font-size: 23px;
+    }
+
+    .current-cv-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .cv-card-actions {
+        width: 100%;
+    }
+
+    .view-button,
+    .download-button {
+        flex: 1;
+    }
+
+    .upload-actions {
+        justify-content: stretch;
+    }
+
+    .upload-button {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .cv-content {
+        padding: 16px;
+    }
+
+    .cv-section {
+        padding: 18px;
+    }
+
+    .current-cv-left {
+        align-items: flex-start;
+    }
+
+    .current-cv-meta {
+        flex-wrap: wrap;
+    }
+
+    .cv-card-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .view-button,
+    .download-button {
+        width: 100%;
+        flex: none;
+    }
+
+    .cv-dropzone {
+        min-height: 175px;
+        padding: 20px;
+    }
+
+}

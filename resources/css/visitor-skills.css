@@ -1,0 +1,517 @@
+/* ========================================
+   VISITOR SKILLS
+   Transparent background for MoltenMetal
+======================================== */
+
+.visitor-skills {
+    position: relative;
+    width: 100%;
+    min-height: auto;
+    padding: 35px 6% 55px;
+    background: transparent !important;
+    color: #ffffff;
+    box-sizing: border-box;
+}
+
+/* ========================================
+   SKILLS HERO
+======================================== */
+
+.skills-hero {
+    max-width: 850px;
+    margin: 0 auto 26px;
+    text-align: center;
+}
+
+.skills-eyebrow {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #f0b9c5;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.skills-hero h1 {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(30px, 4vw, 46px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1.15;
+}
+
+.skills-hero h1 span {
+    color: #f0b9c5;
+}
+
+.skills-hero > p {
+    max-width: 550px;
+    margin: 8px auto 0;
+    color: #f3e8ea;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ========================================
+   SKILLS CONTENT
+======================================== */
+
+.skills-content {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Dua baris marquee */
+
+.skills-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+/* ========================================
+   CARD MARQUEE CONTAINER
+======================================== */
+
+.skills-card-marquee {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 8px 0;
+
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        #000 4%,
+        #000 96%,
+        transparent 100%
+    );
+
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        #000 4%,
+        #000 96%,
+        transparent 100%
+    );
+}
+
+/* ========================================
+   MOVING CARD TRACK
+======================================== */
+
+.skills-card-track {
+    display: flex;
+    align-items: stretch;
+    width: max-content;
+
+    animation: skill-card-marquee var(--marquee-duration, 40s) linear infinite;
+    will-change: transform;
+}
+
+/* Baris kedua bergerak ke arah sebaliknya */
+
+.skills-card-track-reverse {
+    animation-name: skill-card-marquee-reverse;
+}
+
+/*
+ * Track berisi 2 grup identik. Setiap grup memiliki padding-right
+ * sebesar gap, sehingga menggeser -50% menghasilkan loop mulus.
+ */
+
+.skills-card-group {
+    display: flex;
+    align-items: stretch;
+    flex-shrink: 0;
+    gap: 18px;
+    padding-right: 18px;
+}
+
+@keyframes skill-card-marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes skill-card-marquee-reverse {
+    from {
+        transform: translateX(-50%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Pause animation while hovering */
+
+.skills-card-marquee:hover .skills-card-track {
+    animation-play-state: paused;
+}
+
+/* ========================================
+   SKILL CARD
+======================================== */
+
+.skill-card {
+    display: flex;
+    flex: 0 0 296px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+
+    width: 296px;
+    min-width: 0;
+    min-height: 193px;
+    padding: 24px;
+
+    background: rgba(22, 17, 19, 0.88);
+    border: 1px solid rgba(240, 185, 197, 0.13);
+    border-radius: 18px;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-sizing: border-box;
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+
+    background: rgba(48, 27, 33, 0.96);
+    border-color: rgba(240, 185, 197, 0.38);
+
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* ========================================
+   SKILL CARD LOGO
+======================================== */
+
+.skill-card-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    width: 72px;
+    height: 72px;
+    padding: 9px;
+
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(240, 185, 197, 0.16);
+    border-radius: 15px;
+
+    box-sizing: border-box;
+}
+
+.skill-card-logo img {
+    display: block;
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: center;
+}
+
+.skill-card-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    color: #f0b9c5;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+/* ========================================
+   SKILL NAME AND LEVEL
+======================================== */
+
+.skill-card-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    width: 100%;
+    min-width: 0;
+}
+
+.skill-card-body h4 {
+    min-width: 0;
+    margin: 0;
+
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   SKILL LEVEL BADGES
+======================================== */
+
+.skill-card-level {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    padding: 5px 10px;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+
+    border-radius: 8px;
+    white-space: nowrap;
+}
+
+.skill-card-level-beginner {
+    color: #96d4a4;
+    background: rgba(150, 212, 164, 0.12);
+    border: 1px solid rgba(150, 212, 164, 0.25);
+}
+
+.skill-card-level-intermediate {
+    color: #f0b9c5;
+    background: rgba(240, 185, 197, 0.12);
+    border: 1px solid rgba(240, 185, 197, 0.25);
+}
+
+.skill-card-level-advanced {
+    color: #ffd07a;
+    background: rgba(255, 208, 122, 0.12);
+    border: 1px solid rgba(255, 208, 122, 0.25);
+}
+
+/* ========================================
+   TECHNOLOGY DESCRIPTION
+======================================== */
+
+.skill-card-tech {
+    margin: 0;
+
+    color: rgba(243, 232, 234, 0.68);
+    font-size: 13px;
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+}
+
+/* ========================================
+   LOADING AND ERROR
+======================================== */
+
+.skills-status {
+    padding: 30px 20px;
+
+    color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.skills-error {
+    color: #ffd0d5;
+}
+
+.skills-retry-button {
+    display: block;
+    margin: 12px auto 0;
+    padding: 9px 18px;
+
+    color: #ffffff;
+    background: rgba(240, 185, 197, 0.12);
+
+    border: 1px solid rgba(240, 185, 197, 0.3);
+    border-radius: 9px;
+
+    cursor: pointer;
+}
+
+/* ========================================
+   EMPTY STATE
+======================================== */
+
+.skills-empty {
+    padding: 55px 25px;
+    text-align: center;
+
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.04);
+
+    border: 1px dashed rgba(240, 185, 197, 0.2);
+    border-radius: 18px;
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.skills-empty > svg {
+    color: #f0b9c5;
+}
+
+.skills-empty h3 {
+    margin: 15px 0 8px;
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.skills-empty p {
+    margin: 0;
+    color: rgba(243, 232, 234, 0.7);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ========================================
+   TABLET RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+    .visitor-skills {
+        padding: 85px 6%;
+    }
+
+    .skills-hero {
+        margin-bottom: 45px;
+    }
+
+    .skill-card {
+        flex-basis: 270px;
+        width: 270px;
+    }
+}
+
+/* ========================================
+   MOBILE RESPONSIVE
+======================================== */
+
+@media (max-width: 600px) {
+    .visitor-skills {
+        min-height: auto;
+        padding: 25px 16px 40px;
+    }
+
+    .skills-hero {
+        margin-bottom: 18px;
+    }
+
+    .skills-eyebrow {
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+
+    .skills-hero h1 {
+        font-size: clamp(26px, 8vw, 36px);
+        letter-spacing: -1px;
+    }
+
+    .skills-hero > p {
+        margin-top: 8px;
+        font-size: 13px;
+        line-height: 1.6;
+    }
+
+    .skills-rows {
+        gap: 12px;
+    }
+
+    .skills-card-group {
+        gap: 12px;
+        padding-right: 12px;
+    }
+
+    .skill-card {
+        flex-basis: 250px;
+        width: 250px;
+        min-height: 180px;
+        padding: 18px;
+        gap: 13px;
+        border-radius: 15px;
+    }
+
+    .skill-card-logo {
+        width: 62px;
+        height: 62px;
+        padding: 8px;
+        border-radius: 13px;
+    }
+
+    .skill-card-body h4 {
+        font-size: 14px;
+    }
+
+    .skill-card-level {
+        padding: 4px 8px;
+        font-size: 10px;
+    }
+
+    .skill-card-tech {
+        font-size: 12px;
+    }
+
+    .skills-empty {
+        padding: 40px 18px;
+        border-radius: 14px;
+    }
+
+    .skills-empty h3 {
+        font-size: 16px;
+    }
+
+    .skills-empty p {
+        font-size: 13px;
+    }
+}
+
+/* ========================================
+   REDUCED MOTION ACCESSIBILITY
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    .skills-card-marquee {
+        overflow-x: auto;
+    }
+
+    .skills-card-track {
+        animation: none;
+        will-change: auto;
+    }
+
+    /* Grup duplikat disembunyikan saat tanpa animasi */
+    .skills-card-group[aria-hidden='true'] {
+        display: none;
+    }
+
+    .skill-card {
+        transition: none;
+    }
+
+    .skill-card:hover {
+        transform: none;
+    }
+}

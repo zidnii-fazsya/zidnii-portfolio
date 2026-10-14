@@ -1,0 +1,1126 @@
+/* =========================================================
+   EXPERIENCE SECTION — FULL STYLESHEET
+   Bagian 1: gaya dasar halaman Experience
+   Bagian 2: kartu arsip + modal arsip (prefix .exp-arc-)
+========================================================= */
+
+.visitor-experience-section {
+    position: relative;
+    width: 100%;
+    margin: 0;
+    padding: 35px 0 55px;
+    box-sizing: border-box;
+    background: transparent;
+    color: #fff;
+    scroll-margin-top: 75px;
+    overflow: clip;
+    isolation: isolate;
+    --archive-accent: #7b293d;
+    --archive-accent-hover: #91374e;
+}
+.visitor-experience-container { position: relative; z-index: 1; width: min(1240px,calc(100% - 48px)); margin: 0 auto; }
+.visitor-experience-intro { width: min(850px,100%); margin: 0 auto 26px; text-align: center; }
+.visitor-experience-eyebrow { margin: 0 0 8px; color: #d7aeb7; font-size: 11px; font-weight: 800; letter-spacing: .22em; text-transform: uppercase; }
+.visitor-experience-intro h2 { margin: 0; color: #fff; font-size: clamp(30px,4vw,46px); line-height: 1.1; font-weight: 800; letter-spacing: -.035em; }
+.visitor-experience-intro-text { max-width: 680px; margin: 8px auto 0; color: rgba(255,255,255,.68); font-size: 14px; line-height: 1.6; }
+
+.visitor-experience-group { width: 100%; margin: 0 auto 35px; }
+.visitor-experience-group:last-child { margin-bottom: 0; }
+.visitor-experience-group--organization { padding-top: 5px; }
+.visitor-experience-group-heading { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+.visitor-experience-group-icon {
+    display: flex; align-items: center; justify-content: center; flex: 0 0 46px;
+    width: 46px; height: 46px; border: 1px solid rgba(215,174,183,.2);
+    border-radius: 14px; background: rgba(61,20,30,.92); color: #fff;
+    box-shadow: 0 12px 28px rgba(0,0,0,.28);
+}
+.visitor-experience-group-heading p { margin: 0 0 5px; color: #d7aeb7; font-size: 11px; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+.visitor-experience-group-heading h3 { margin: 0; color: #fff; font-size: clamp(28px,3.5vw,44px); line-height: 1.1; font-weight: 800; letter-spacing: -.025em; }
+
+.visitor-experience-list { display: flex; flex-direction: column; gap: 65px; }
+.visitor-experience-item {
+    display: grid;
+    grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
+    align-items: start;
+    gap: 48px;
+    width: 100%;
+    min-width: 0;
+}
+.visitor-experience-item--reverse .visitor-experience-content { order: 2; }
+.visitor-experience-item--reverse .visitor-experience-gallery { order: 1; }
+.visitor-experience-content { position: relative; display: flex; flex-direction: column; justify-content: flex-start; min-width: 0; padding: 0; }
+.visitor-experience-number { margin-bottom: 18px; color: rgba(215,174,183,.2); font-size: 58px; line-height: .9; font-weight: 900; letter-spacing: -.06em; }
+
+.visitor-experience-heading { display: flex; align-items: flex-start; gap: 13px; min-width: 0; margin-bottom: 20px; }
+.visitor-experience-icon {
+    display: flex; align-items: center; justify-content: center; flex: 0 0 44px;
+    width: 44px; height: 44px; margin-top: 2px; border: 1px solid rgba(215,174,183,.16);
+    border-radius: 12px; background: rgba(61,20,30,.72); color: #f2dfe3;
+}
+.visitor-experience-type { margin: 0 0 7px; color: #d7aeb7; font-size: 11px; line-height: 1.3; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.visitor-experience-heading h3 { margin: 0; color: #fff; font-size: clamp(26px,3vw,38px); line-height: 1.12; font-weight: 800; letter-spacing: -.025em; overflow-wrap: anywhere; }
+
+.visitor-experience-company { display: flex; align-items: center; gap: 13px; margin-bottom: 20px; min-width: 0; }
+.visitor-experience-company-logo {
+    display: flex; align-items: center; justify-content: center; flex: 0 0 52px;
+    width: 52px; height: 52px; overflow: hidden; border: 1px solid rgba(255,255,255,.14);
+    border-radius: 14px; background: rgba(255,255,255,.96); color: #3d141e;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+.visitor-experience-company-logo img { display: block; width: 100%; height: 100%; padding: 7px; box-sizing: border-box; object-fit: contain; }
+.visitor-experience-company-logo--fallback { background: rgba(61,20,30,.88); color: #f2dfe3; }
+.visitor-experience-company-name { margin: 0; color: #fff; font-size: 16px; line-height: 1.4; font-weight: 700; overflow-wrap: anywhere; }
+.visitor-experience-employment { margin: 4px 0 0; color: rgba(255,255,255,.52); font-size: 13px; line-height: 1.4; font-weight: 500; }
+
+.visitor-experience-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 9px; margin-bottom: 22px; }
+.visitor-experience-meta-item,
+.visitor-experience-duration {
+    display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px;
+    border: 1px solid rgba(255,255,255,.12); border-radius: 999px;
+    background: rgba(255,255,255,.055); color: rgba(255,255,255,.7);
+    font-size: 12px; line-height: 1.3; font-weight: 600;
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.visitor-experience-meta-item svg { flex: 0 0 auto; color: #d7aeb7; }
+.visitor-experience-duration { border-color: rgba(215,174,183,.18); background: rgba(61,20,30,.9); color: #fff; font-weight: 700; }
+.visitor-experience-description { max-width: 620px; margin-bottom: 0; }
+.visitor-experience-description p { margin: 0; color: rgba(255,255,255,.68); font-size: 15px; line-height: 1.8; overflow-wrap: anywhere; white-space: pre-line; }
+.visitor-experience-technologies { margin-top: 22px; min-width: 0; }
+.visitor-experience-label { margin: 0 0 11px; color: #d7aeb7; font-size: 10px; line-height: 1.3; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+.visitor-experience-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.visitor-experience-tag {
+    display: inline-flex; align-items: center; min-height: 30px; padding: 6px 11px;
+    border: 1px solid rgba(255,255,255,.12); border-radius: 999px;
+    background: rgba(255,255,255,.045); color: rgba(255,255,255,.78);
+    font-size: 11px; line-height: 1.2; font-weight: 700; overflow-wrap: anywhere;
+    transition: background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease;
+}
+.visitor-experience-tag:hover { border-color: rgba(215,174,183,.5); background: rgba(61,20,30,.72); color: #fff; transform: translateY(-2px); }
+
+/* Kolom kanan: wadah kartu arsip */
+.visitor-experience-gallery {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+    justify-content: flex-start;
+    min-width: 0;
+    width: 100%;
+    margin-top: 95px;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+    isolation: isolate;
+}
+.visitor-experience-gallery > * { width: 100%; min-width: 0; max-width: 100%; box-sizing: border-box; }
+
+/* Empty, loading, error */
+.visitor-experience-no-photo {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+    width: 100%; min-width: 0; min-height: 180px; padding: 22px; box-sizing: border-box;
+    border: 1px dashed rgba(255,255,255,.18); border-radius: 18px;
+    background: rgba(255,255,255,.025); color: rgba(255,255,255,.58); font-size: 13px; text-align: center;
+}
+.visitor-experience-no-photo svg { color: #d7aeb7; }
+.visitor-experience-loading { display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 280px; color: #d7aeb7; font-size: 15px; font-weight: 600; }
+.visitor-experience-loading-icon { animation: visitor-experience-spin 1s linear infinite; }
+@keyframes visitor-experience-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+.visitor-experience-error { width: min(800px,calc(100% - 48px)); margin: 0 auto; padding: 24px; border: 1px solid rgba(215,174,183,.24); border-radius: 18px; background: rgba(61,20,30,.6); color: #f2dfe3; font-size: 14px; line-height: 1.6; text-align: center; }
+.visitor-experience-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; min-height: 240px; padding: 35px; border: 1px dashed rgba(215,174,183,.22); border-radius: 22px; background: rgba(255,255,255,.035); color: rgba(255,255,255,.62); text-align: center; }
+.visitor-experience-empty svg { color: #d7aeb7; }
+.visitor-experience-empty h3 { margin: 0; color: #fff; font-size: 22px; font-weight: 800; }
+.visitor-experience-empty p { max-width: 500px; margin: 0; color: rgba(255,255,255,.55); font-size: 14px; line-height: 1.7; }
+
+/* Responsive halaman */
+@media (max-width: 1100px) {
+    .visitor-experience-item { grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 30px; }
+    .visitor-experience-gallery { margin-top: 80px; }
+}
+@media (max-width: 900px) {
+    .visitor-experience-section { padding: 60px 0 65px; }
+    .visitor-experience-container { width: min(100%,calc(100% - 40px)); }
+    .visitor-experience-intro { margin-bottom: 50px; }
+    .visitor-experience-group { margin-bottom: 70px; }
+    .visitor-experience-item { grid-template-columns: minmax(0,1fr); gap: 24px; min-height: 0; }
+    .visitor-experience-item--reverse .visitor-experience-content { order: 1; }
+    .visitor-experience-item--reverse .visitor-experience-gallery { order: 2; }
+    .visitor-experience-gallery { margin-top: 0; width: 100%; }
+    .visitor-experience-no-photo { min-height: 180px; }
+}
+@media (max-width: 640px) {
+    .visitor-experience-section { padding: 45px 0 50px; }
+    .visitor-experience-container { width: calc(100% - 32px); }
+    .visitor-experience-intro { margin-bottom: 42px; }
+    .visitor-experience-eyebrow { font-size: 11px; letter-spacing: .18em; }
+    .visitor-experience-intro h2 { font-size: 38px; }
+    .visitor-experience-intro-text { margin-top: 15px; font-size: 14px; line-height: 1.75; }
+    .visitor-experience-group { margin-bottom: 58px; }
+    .visitor-experience-group-heading { gap: 12px; margin-bottom: 28px; }
+    .visitor-experience-group-icon { flex-basis: 42px; width: 42px; height: 42px; border-radius: 12px; }
+    .visitor-experience-group-heading p { font-size: 9px; letter-spacing: .13em; }
+    .visitor-experience-group-heading h3 { font-size: 27px; }
+    .visitor-experience-list { gap: 45px; }
+    .visitor-experience-number { margin-bottom: 15px; font-size: 50px; }
+    .visitor-experience-heading { gap: 11px; margin-bottom: 18px; }
+    .visitor-experience-icon { flex-basis: 38px; width: 38px; height: 38px; border-radius: 10px; }
+    .visitor-experience-type { font-size: 9px; letter-spacing: .11em; }
+    .visitor-experience-heading h3 { font-size: 25px; }
+    .visitor-experience-company { gap: 11px; margin-bottom: 18px; }
+    .visitor-experience-company-logo { flex-basis: 48px; width: 48px; height: 48px; border-radius: 12px; }
+    .visitor-experience-company-name { font-size: 14px; }
+    .visitor-experience-employment { font-size: 11px; }
+    .visitor-experience-meta { align-items: flex-start; flex-direction: column; gap: 7px; margin-bottom: 18px; }
+    .visitor-experience-meta-item, .visitor-experience-duration { font-size: 11px; }
+    .visitor-experience-description p { font-size: 14px; line-height: 1.8; }
+    .visitor-experience-technologies { margin-top: 18px; }
+    .visitor-experience-tags { gap: 6px; }
+    .visitor-experience-tag { padding: 6px 9px; font-size: 10px; }
+    .visitor-experience-gallery { margin-top: 0; width: 100%; }
+    .visitor-experience-no-photo { min-height: 150px; border-radius: 14px; font-size: 11px; }
+    .visitor-experience-empty { min-height: 210px; padding: 28px 18px; }
+    .visitor-experience-empty h3 { font-size: 19px; }
+    .visitor-experience-empty p { font-size: 13px; }
+}
+@media (max-width: 420px) {
+    .visitor-experience-container { width: calc(100% - 24px); }
+    .visitor-experience-intro h2 { font-size: 34px; }
+    .visitor-experience-group-heading h3 { font-size: 24px; }
+    .visitor-experience-gallery { margin-top: 0; }
+    .visitor-experience-no-photo { min-height: 140px; padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .visitor-experience-loading-icon { animation: none; }
+    .visitor-experience-tag { transition: none; }
+}
+
+/* =========================================================
+KARTU ARSIP
+========================================================= */
+
+.exp-arc-card {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 22px;
+    background: rgba(20, 13, 16, 0.92);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.16);
+    transition:
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.exp-arc-card:hover {
+    border-color: var(--archive-accent);
+    transform: translateY(-4px);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+}
+
+.exp-arc-card-button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+}
+
+.exp-arc-card-button:focus-visible,
+.exp-arc-modal-close:focus-visible,
+.exp-arc-close:focus-visible {
+    outline: 2px solid #d98b9d;
+    outline-offset: 4px;
+}
+
+/* Preview gambar */
+
+.exp-arc-preview {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: repeat(2, minmax(90px, 1fr));
+    gap: 6px;
+    height: 260px;
+    padding: 8px;
+    overflow: hidden;
+    background: #211419;
+}
+
+.exp-arc-preview-item {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #281920;
+}
+
+.exp-arc-preview-item--1 {
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
+
+.exp-arc-preview-item--2 {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.exp-arc-preview-item--3 {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* 1 gambar: penuh */
+.exp-arc-preview--1 {
+    grid-template-columns: 1fr;
+}
+
+/* 2 gambar: dua kolom sama tinggi */
+.exp-arc-preview--2 .exp-arc-preview-item--2 {
+    grid-row: 1 / 3;
+}
+
+.exp-arc-preview-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top left;
+    transition: transform 0.45s ease;
+}
+
+.exp-arc-card:hover .exp-arc-preview-item img {
+    transform: scale(1.045);
+}
+
+.exp-arc-preview--empty {
+    display: flex;
+    height: 180px;
+}
+
+.exp-arc-preview-empty {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+}
+
+.exp-arc-preview-shade {
+    position: absolute;
+    inset: 8px;
+    pointer-events: none;
+    border-radius: 12px;
+    background: linear-gradient(
+        180deg,
+        rgba(10, 7, 9, 0.12) 0%,
+        transparent 35%,
+        rgba(10, 7, 9, 0.38) 100%
+    );
+}
+
+.exp-arc-preview-label,
+.exp-arc-preview-count {
+    position: absolute;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    background: rgba(18, 13, 15, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.exp-arc-preview-label {
+    top: 20px;
+    left: 20px;
+    padding: 9px 13px;
+    border-radius: 9px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+.exp-arc-preview-count {
+    right: 20px;
+    bottom: 20px;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.exp-arc-preview-open {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 50%;
+    color: #fff;
+    background: var(--archive-accent);
+    transition: transform 0.25s ease;
+}
+
+.exp-arc-card:hover .exp-arc-preview-open {
+    transform: translate(2px, -2px);
+}
+
+/* Informasi kartu */
+
+.exp-arc-card-info {
+    padding: 22px 24px 26px;
+}
+
+.exp-arc-card-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.exp-arc-card-title-wrap {
+    min-width: 0;
+}
+
+.exp-arc-kicker {
+    display: block;
+    margin-bottom: 7px;
+    color: #c98799;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    line-height: 1.5;
+}
+
+.exp-arc-card-title-wrap h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 21px;
+    font-weight: 700;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.exp-arc-card-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 11px;
+    color: #f0d9df;
+    background: rgba(123, 41, 61, 0.22);
+    transition:
+        color 0.2s ease,
+        background 0.2s ease;
+}
+
+.exp-arc-card:hover .exp-arc-card-icon {
+    color: #fff;
+    background: var(--archive-accent);
+}
+
+.exp-arc-card-description {
+    margin: 12px 0 18px;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.exp-arc-card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #f0d5dd;
+    font-size: 12px;
+    font-weight: 700;
+    transition: gap 0.2s ease;
+}
+
+.exp-arc-card:hover .exp-arc-card-action {
+    gap: 12px;
+}
+
+/* =========================================================
+   MODAL ARSIP
+========================================================= */
+
+.exp-arc-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    overflow-y: auto;
+    background: rgba(8, 5, 7, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: expArcFadeIn 0.2s ease both;
+}
+
+.exp-arc-modal-backdrop *,
+.exp-arc-modal-backdrop *::before,
+.exp-arc-modal-backdrop *::after {
+    box-sizing: border-box;
+}
+
+.exp-arc-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(1100px, 100%);
+    max-height: min(88vh, 900px);
+    min-height: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+    color: #fff;
+    background:
+        radial-gradient(circle at top left, rgba(123, 41, 61, 0.15), transparent 36%),
+        #120d0f;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+    animation: expArcModalIn 0.25s ease both;
+}
+
+/* Header */
+
+.exp-arc-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 22px;
+    padding: 25px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.exp-arc-modal-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+}
+
+.exp-arc-modal-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(220, 143, 163, 0.22);
+    border-radius: 14px;
+    color: #f0c1ce;
+    background: rgba(123, 41, 61, 0.27);
+}
+
+.exp-arc-modal-heading h3 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(20px, 2.4vw, 28px);
+    font-weight: 750;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+}
+
+.exp-arc-modal-heading p {
+    margin: 7px 0 0;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.exp-arc-modal-close {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 12px;
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.045);
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.exp-arc-modal-close:hover {
+    color: #fff;
+    background: var(--archive-accent);
+}
+
+/* Body (scroll) */
+
+.exp-arc-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+    padding: 26px 28px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: #703344 #1a1215;
+}
+
+.exp-arc-modal-layout {
+    display: grid;
+    grid-template-columns: minmax(250px, 0.72fr) minmax(0, 1.5fr);
+    align-items: start;
+    gap: 28px;
+}
+
+.exp-arc-overview {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.025);
+}
+
+.exp-arc-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.exp-arc-section-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(220, 143, 163, 0.18);
+    border-radius: 12px;
+    color: #e7b0be;
+    background: rgba(123, 41, 61, 0.2);
+}
+
+.exp-arc-section-heading .exp-arc-kicker {
+    margin-bottom: 3px;
+}
+
+.exp-arc-section-heading h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.exp-arc-subtitle {
+    margin: 20px 0 0;
+    color: #f2d8df;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.exp-arc-overview-description {
+    margin: 18px 0 20px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 13px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+.exp-arc-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.exp-arc-info-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    color: #e7a6b7;
+    background: rgba(123, 41, 61, 0.23);
+}
+
+.exp-arc-info > div {
+    min-width: 0;
+}
+
+.exp-arc-info strong {
+    display: block;
+    margin: 0 0 4px;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.exp-arc-info p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
+
+.exp-arc-tech {
+    margin-top: 22px;
+}
+
+.exp-arc-tech h5 {
+    margin: 0 0 11px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.exp-arc-tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.exp-arc-tech-list .exp-arc-tag {
+    padding: 6px 10px;
+    border: 1px solid rgba(220, 143, 163, 0.18);
+    border-radius: 7px;
+    color: #e9c2cc;
+    background: rgba(123, 41, 61, 0.16);
+    font-size: 11px;
+}
+
+.exp-arc-links {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    margin-top: 24px;
+}
+
+.exp-arc-links .exp-arc-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    height: auto;
+    padding: 12px 13px;
+    border-radius: 10px;
+    font-size: 12px;
+}
+
+.exp-arc-links .exp-arc-link span {
+    flex: 1;
+}
+
+/* Galeri dokumentasi */
+
+.exp-arc-gallery {
+    min-width: 0;
+}
+
+.exp-arc-gallery-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.exp-arc-gallery-count {
+    flex: 0 0 auto;
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 24px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.exp-arc-image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.exp-arc-image-card {
+    min-width: 0;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.025);
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.exp-arc-image-card:hover {
+    border-color: rgba(201, 112, 137, 0.65);
+    transform: translateY(-2px);
+}
+
+.exp-arc-image-link {
+    position: relative;
+    display: block;
+    height: 250px;
+    overflow: hidden;
+    background: #211419;
+}
+
+.exp-arc-image-link img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.4s ease;
+}
+
+.exp-arc-image-card:hover .exp-arc-image-link img {
+    transform: scale(1.04);
+}
+
+.exp-arc-image-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: #fff;
+    background: rgba(14, 8, 11, 0.62);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.exp-arc-image-card:hover .exp-arc-image-overlay,
+.exp-arc-image-link:focus-visible .exp-arc-image-overlay {
+    opacity: 1;
+}
+
+.exp-arc-image-card figcaption {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 14px;
+}
+
+.exp-arc-image-number {
+    flex: 0 0 auto;
+    color: #d28da0;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.exp-arc-image-caption {
+    min-width: 0;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.exp-arc-no-images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 200px;
+    padding: 25px;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    color: rgba(255, 255, 255, 0.45);
+    text-align: center;
+}
+
+.exp-arc-no-images p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* Footer */
+
+.exp-arc-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 17px 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.exp-arc-modal-total {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 12px;
+}
+
+.exp-arc-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 10px;
+    color: #fff;
+    background: var(--archive-accent);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.exp-arc-close:hover {
+    background: var(--archive-accent-hover);
+    transform: translateY(-1px);
+}
+
+/* Animasi */
+
+@keyframes expArcFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes expArcModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.99);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* Variabel warna untuk modal (dirender lewat portal di <body>) */
+.exp-arc-modal-backdrop {
+    --archive-accent: #7b293d;
+    --archive-accent-hover: #91374e;
+}
+
+/* Gaya dasar link di modal (ikon + teks) */
+.exp-arc-link {
+    color: #f0d5dd;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    text-decoration: none;
+}
+
+.exp-arc-link:hover {
+    border-color: var(--archive-accent);
+    background: rgba(123, 41, 61, 0.3);
+}
+
+/* =========================================================
+   RESPONSIVE — KARTU & MODAL ARSIP
+========================================================= */
+
+@media (max-width: 900px) {
+    .exp-arc-modal-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 24px;
+    }
+
+    .exp-arc-modal {
+        max-height: 90vh;
+    }
+}
+
+@media (max-width: 600px) {
+    .exp-arc-preview {
+        height: 210px;
+    }
+
+    .exp-arc-card-info {
+        padding: 18px;
+    }
+
+    .exp-arc-card-title-wrap h4 {
+        font-size: 17px;
+    }
+
+    .exp-arc-modal-backdrop {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .exp-arc-modal {
+        width: 100%;
+        max-height: 94dvh;
+        border-radius: 20px 20px 0 0;
+        border-bottom: 0;
+    }
+
+    .exp-arc-modal-header {
+        padding: 19px 17px;
+        gap: 12px;
+    }
+
+    .exp-arc-modal-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .exp-arc-modal-heading h3 {
+        font-size: 19px;
+    }
+
+    .exp-arc-modal-body {
+        padding: 18px 16px;
+    }
+
+    .exp-arc-image-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 13px;
+    }
+
+    .exp-arc-image-link {
+        height: 220px;
+    }
+
+    .exp-arc-modal-footer {
+        padding: 13px 16px;
+    }
+
+    .exp-arc-close {
+        padding: 10px 13px;
+        font-size: 12px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .exp-arc-card,
+    .exp-arc-card *,
+    .exp-arc-modal-backdrop,
+    .exp-arc-modal {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   TAMBAHAN: TOMBOL "BACA DETAIL" + MODAL DETAIL + ARSIP LEBAR
+   TEMPELKAN DI PALING BAWAH visitor-experience.css
+   (tidak ada kode lama yang dihapus)
+========================================================= */
+
+/* Deskripsi ringkas: dipotong 4 baris, selengkapnya lewat tombol */
+
+.visitor-experience-description .visitor-experience-description-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.visitor-experience-readmore {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 9px 16px;
+    border: 1px solid rgba(215, 174, 183, 0.28);
+    border-radius: 999px;
+    color: #f0d5dd;
+    background: rgba(123, 41, 61, 0.28);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.3;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        gap 0.2s ease;
+}
+
+.visitor-experience-readmore:hover {
+    gap: 12px;
+    border-color: var(--archive-accent);
+    color: #fff;
+    background: var(--archive-accent);
+}
+
+.visitor-experience-readmore:focus-visible {
+    outline: 2px solid #d98b9d;
+    outline-offset: 3px;
+}
+
+/* Modal detail: sempit, satu kolom */
+
+.exp-arc-modal--detail {
+    width: min(720px, 100%);
+}
+
+.exp-arc-modal--detail .exp-arc-modal-footer {
+    justify-content: flex-end;
+}
+
+.exp-arc-modal--detail .exp-arc-overview-description {
+    font-size: 14px;
+    line-height: 2;
+}
+
+/* Modal arsip: hanya galeri, tampil 3 kolom di layar lebar */
+
+.exp-arc-modal--wide .exp-arc-image-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+    .exp-arc-modal--wide .exp-arc-image-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .exp-arc-modal--wide .exp-arc-image-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .visitor-experience-readmore {
+        transition: none;
+    }
+}

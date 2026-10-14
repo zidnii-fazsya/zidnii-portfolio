@@ -1,0 +1,951 @@
+/* =========================================================
+   VISITOR ABOUT SECTION
+========================================================= */
+
+.visitor-about {
+    position: relative;
+    width: 100%;
+
+    /* Section mengikuti tinggi konten. */
+    min-height: auto;
+
+    margin: 0;
+    padding: 40px 6vw 55px;
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    background: transparent;
+    color: #ffffff;
+
+    scroll-margin-top: 75px;
+}
+
+/* =========================================================
+   ABOUT CONTAINER
+========================================================= */
+
+.visitor-about-container {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 1400px;
+    min-height: 0;
+
+    margin: 0 auto;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 0.9fr)
+        minmax(0, 1.1fr);
+
+    align-items: center;
+
+    gap: 40px;
+}
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.visitor-about-content {
+    position: relative;
+    z-index: 3;
+
+    width: 100%;
+    max-width: 620px;
+}
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.visitor-about-label {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 8px;
+
+    color: #f3e8ea;
+
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.visitor-about-title {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(30px, 4vw, 48px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+}
+
+/* =========================================================
+   TITLE LINE
+========================================================= */
+
+.visitor-about-line {
+    width: 60px;
+    height: 3px;
+
+    margin: 14px 0 16px;
+
+    border-radius: 999px;
+
+    background: linear-gradient(
+        90deg,
+        #ffffff,
+        #8b3f4c
+    );
+}
+
+/* =========================================================
+   DESCRIPTION / BIO
+========================================================= */
+
+.visitor-about-description {
+    max-width: 600px;
+
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.76);
+
+    font-size: 16px;
+    line-height: 1.8;
+    letter-spacing: 0.1px;
+
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+/* Bio panjang: dipotong menjadi 5 baris */
+.visitor-about-description--clamped {
+    display: -webkit-box;
+
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+
+    overflow: hidden;
+}
+
+/* =========================================================
+   TOMBOL DETAIL BIO
+========================================================= */
+
+.visitor-about-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: 14px 0 0;
+    padding: 9px 15px;
+
+    color: #f3e8ea;
+    background: rgba(61, 20, 30, 0.55);
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.visitor-about-more svg {
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+}
+
+.visitor-about-more:hover {
+    background: rgba(123, 41, 61, 0.75);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.visitor-about-more:hover svg {
+    transform: translateX(3px);
+}
+
+.visitor-about-more:focus-visible {
+    outline: 2px solid #d98b9d;
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   INTERESTS
+========================================================= */
+
+.visitor-about-interests {
+    margin-top: 28px;
+}
+
+.visitor-about-interests h3 {
+    margin: 0 0 16px;
+
+    color: #ffffff;
+
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   INTEREST LIST
+========================================================= */
+
+.visitor-interest-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+/* =========================================================
+   INTEREST ITEM
+========================================================= */
+
+.visitor-interest-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-height: 54px;
+    padding: 10px 14px;
+
+    box-sizing: border-box;
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 12px;
+
+    background: rgba(0, 0, 0, 0.18);
+
+    backdrop-filter: blur(8px);
+
+    transition:
+        transform 0.3s ease,
+        border-color 0.3s ease,
+        background 0.3s ease;
+}
+
+.visitor-interest-item:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(61, 20, 30, 0.35);
+}
+
+/* =========================================================
+   INTEREST ICON
+========================================================= */
+
+.visitor-interest-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+
+    color: #f3e8ea;
+    background: rgba(61, 20, 30, 0.45);
+}
+
+.visitor-interest-item span {
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* =========================================================
+   ABOUT BUTTON
+========================================================= */
+
+.visitor-about-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    margin-top: 28px;
+    padding: 13px 20px;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+
+    color: #ffffff;
+    background: rgba(61, 20, 30, 0.55);
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    backdrop-filter: blur(8px);
+
+    transition:
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.visitor-about-button:hover {
+    transform: translateY(-3px);
+
+    border-color: rgba(255, 255, 255, 0.4);
+    background: rgba(86, 28, 36, 0.75);
+}
+
+/* =========================================================
+   RIGHT / CAROUSEL
+========================================================= */
+
+.visitor-about-carousel {
+    position: relative;
+
+    width: 100%;
+    height: 460px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* =========================================================
+   CAROUSEL LABEL
+========================================================= */
+
+.visitor-about-carousel-label {
+    position: absolute;
+
+    top: 12px;
+    left: 50%;
+
+    z-index: 5;
+
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.visitor-about-carousel-label span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 14px;
+
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 999px;
+
+    color: rgba(255, 255, 255, 0.72);
+    background: rgba(0, 0, 0, 0.18);
+
+    backdrop-filter: blur(8px);
+
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+/* =========================================================
+   EMPTY CAROUSEL
+========================================================= */
+
+.visitor-carousel-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 460px;
+    min-height: 300px;
+
+    padding: 25px;
+    box-sizing: border-box;
+
+    border: 1px dashed rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+
+    background: rgba(0, 0, 0, 0.16);
+
+    color: #ffffff;
+    text-align: center;
+
+    backdrop-filter: blur(8px);
+}
+
+.visitor-carousel-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 52px;
+    height: 52px;
+
+    margin-bottom: 16px;
+
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+
+    color: rgba(255, 255, 255, 0.75);
+
+    font-size: 26px;
+    font-weight: 300;
+}
+
+.visitor-carousel-empty p {
+    margin: 0 0 7px;
+
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.visitor-carousel-empty span {
+    max-width: 300px;
+
+    color: rgba(255, 255, 255, 0.5);
+
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   MODAL NARASI LENGKAP (ABOUT ME)
+========================================================= */
+
+.visitor-about-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+    overflow-y: auto;
+
+    background: rgba(8, 5, 7, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    animation: visitorAboutFadeIn 0.2s ease both;
+}
+
+.visitor-about-modal-backdrop *,
+.visitor-about-modal-backdrop *::before,
+.visitor-about-modal-backdrop *::after {
+    box-sizing: border-box;
+}
+
+.visitor-about-modal {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: min(760px, 100%);
+    max-height: min(86vh, 860px);
+    min-height: 0;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+
+    color: #ffffff;
+    background:
+        radial-gradient(
+            circle at top left,
+            rgba(123, 41, 61, 0.18),
+            transparent 40%
+        ),
+        #120d0f;
+
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+
+    animation: visitorAboutModalIn 0.25s ease both;
+}
+
+/* Header */
+
+.visitor-about-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 24px 28px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.visitor-about-modal-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    min-width: 0;
+}
+
+.visitor-about-modal-icon {
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    width: 48px;
+    height: 48px;
+
+    border: 1px solid rgba(220, 143, 163, 0.22);
+    border-radius: 14px;
+
+    color: #f0c1ce;
+    background: rgba(123, 41, 61, 0.27);
+}
+
+.visitor-about-modal-eyebrow {
+    display: block;
+    margin-bottom: 6px;
+
+    color: #c98799;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+    line-height: 1.5;
+}
+
+.visitor-about-modal-heading h3 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(20px, 2.4vw, 26px);
+    font-weight: 750;
+    line-height: 1.35;
+}
+
+.visitor-about-modal-heading p {
+    margin: 6px 0 0;
+
+    color: rgba(255, 255, 255, 0.58);
+
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.visitor-about-modal-close {
+    flex: 0 0 auto;
+
+    display: grid;
+    place-items: center;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 12px;
+
+    color: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.045);
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.visitor-about-modal-close:hover {
+    color: #ffffff;
+    background: #7b293d;
+}
+
+.visitor-about-modal-close:focus-visible,
+.visitor-about-modal-close-button:focus-visible {
+    outline: 2px solid #d98b9d;
+    outline-offset: 3px;
+}
+
+/* Body (scroll) */
+
+.visitor-about-modal-body {
+    flex: 1 1 auto;
+    min-height: 0;
+
+    padding: 26px 28px;
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+    scrollbar-color: #703344 #1a1215;
+}
+
+.visitor-about-modal-text {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.82);
+
+    font-size: 15px;
+    line-height: 1.95;
+
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.visitor-about-modal-tags {
+    margin-top: 26px;
+    padding-top: 22px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.visitor-about-modal-tags h4 {
+    margin: 0 0 12px;
+
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.visitor-about-modal-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.visitor-about-modal-tag {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 7px 12px;
+
+    border: 1px solid rgba(220, 143, 163, 0.2);
+    border-radius: 999px;
+
+    color: #e9c2cc;
+    background: rgba(123, 41, 61, 0.2);
+
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+/* Footer */
+
+.visitor-about-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+
+    padding: 16px 28px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.visitor-about-modal-close-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 11px 18px;
+
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 10px;
+
+    color: #ffffff;
+    background: #7b293d;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.visitor-about-modal-close-button:hover {
+    background: #91374e;
+    transform: translateY(-1px);
+}
+
+@keyframes visitorAboutFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes visitorAboutModalIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.99);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+    .visitor-about {
+        padding: 65px 5vw 55px;
+    }
+
+    .visitor-about-container {
+        grid-template-columns:
+            minmax(0, 1fr)
+            minmax(0, 1fr);
+
+        gap: 30px;
+    }
+
+    .visitor-about-carousel {
+        height: 420px;
+    }
+
+    .visitor-about-title {
+        font-size: 52px;
+    }
+
+    .visitor-about-description {
+        font-size: 15px;
+    }
+
+    .visitor-interest-list {
+        gap: 10px;
+    }
+
+    .visitor-interest-item {
+        padding: 9px 10px;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+    .visitor-about {
+        min-height: auto;
+
+        padding: 50px 20px 45px;
+        scroll-margin-top: 70px;
+    }
+
+    .visitor-about-container {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 25px;
+        min-height: 0;
+    }
+
+    .visitor-about-content {
+        max-width: none;
+    }
+
+    .visitor-about-label {
+        margin-bottom: 12px;
+    }
+
+    .visitor-about-title {
+        font-size: 44px;
+        letter-spacing: -1.5px;
+    }
+
+    .visitor-about-line {
+        margin: 18px 0 20px;
+    }
+
+    .visitor-about-description {
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .visitor-about-description--clamped {
+        -webkit-line-clamp: 6;
+        line-clamp: 6;
+    }
+
+    .visitor-about-interests {
+        margin-top: 24px;
+    }
+
+    .visitor-about-interests h3 {
+        margin-bottom: 14px;
+    }
+
+    .visitor-interest-list {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .visitor-about-button {
+        width: 100%;
+        margin-top: 24px;
+        box-sizing: border-box;
+    }
+
+    .visitor-about-carousel {
+        height: 380px;
+        width: 100%;
+    }
+
+    .visitor-about-carousel-label {
+        top: 5px;
+    }
+
+    .visitor-carousel-empty {
+        min-height: 270px;
+    }
+
+    /* Modal: bottom sheet di mobile */
+
+    .visitor-about-modal-backdrop {
+        align-items: flex-end;
+        padding: 0;
+    }
+
+    .visitor-about-modal {
+        width: 100%;
+        max-height: 92dvh;
+
+        border-radius: 20px 20px 0 0;
+        border-bottom: 0;
+    }
+
+    .visitor-about-modal-header {
+        gap: 12px;
+        padding: 18px 16px;
+    }
+
+    .visitor-about-modal-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .visitor-about-modal-body {
+        padding: 18px 16px;
+    }
+
+    .visitor-about-modal-text {
+        font-size: 14px;
+        line-height: 1.9;
+    }
+
+    .visitor-about-modal-footer {
+        padding: 13px 16px;
+    }
+
+    .visitor-about-modal-close-button {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+    .visitor-about {
+        padding: 40px 16px 35px;
+    }
+
+    .visitor-about-container {
+        gap: 20px;
+    }
+
+    .visitor-about-title {
+        font-size: 38px;
+    }
+
+    .visitor-about-label {
+        font-size: 11px;
+        letter-spacing: 2.5px;
+    }
+
+    .visitor-about-description {
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .visitor-about-carousel {
+        height: 330px;
+    }
+
+    .visitor-interest-item {
+        min-height: 52px;
+    }
+
+    .visitor-carousel-empty {
+        min-height: 240px;
+        padding: 20px;
+    }
+}
+
+/* =========================================================
+   REDUCE MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .visitor-interest-item,
+    .visitor-about-button,
+    .visitor-about-more,
+    .visitor-about-more svg,
+    .visitor-about-modal-close,
+    .visitor-about-modal-close-button {
+        transition: none;
+    }
+
+    .visitor-about-modal-backdrop,
+    .visitor-about-modal {
+        animation: none;
+    }
+}

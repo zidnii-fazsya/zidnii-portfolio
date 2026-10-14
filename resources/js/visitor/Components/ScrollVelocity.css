@@ -1,0 +1,57 @@
+
+/* ========================================
+   SCROLL VELOCITY
+   Reusable text animation component
+======================================== */
+
+.scroll-velocity-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.parallax {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.scroller {
+    display: flex;
+    width: max-content;
+
+    white-space: nowrap;
+    text-align: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+
+    will-change: transform;
+}
+
+.scroller span {
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+    .scroller {
+        font-size: 5rem;
+        line-height: 1;
+    }
+}
+
+@media (max-width: 600px) {
+    .scroller {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroller {
+        will-change: auto;
+    }
+}
