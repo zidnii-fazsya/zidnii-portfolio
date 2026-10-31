@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -22,6 +23,21 @@ import useLanguage from '../utils/useLanguage';
 
 /*
 |--------------------------------------------------------------------------
+| KONFIGURASI URL GAMBAR
+|--------------------------------------------------------------------------
+|
+| File gambar yang sudah disalin ke Netlify tersedia melalui:
+| /storage/...
+|
+| Jika menggunakan domain Netlify sendiri, biarkan kosong.
+| Jika ingin menggunakan domain khusus untuk file statis, isi di sini.
+|
+*/
+
+const STATIC_STORAGE_BASE_URL = '';
+
+/*
+|--------------------------------------------------------------------------
 | NORMALISASI URL GAMBAR
 |--------------------------------------------------------------------------
 */
@@ -33,10 +49,12 @@ const normalizeImageUrl = (rawValue) => {
 
     const value = rawValue.trim();
 
+    // Pertahankan URL data dan blob.
     if (/^(data:|blob:)/i.test(value)) {
         return value;
     }
 
+    // Jika URL absolut, periksa apakah berasal dari Laravel storage.
     if (/^https?:\/\//i.test(value)) {
         try {
             const parsedUrl = new URL(value);
@@ -45,11 +63,7 @@ const normalizeImageUrl = (rawValue) => {
                 parsedUrl.pathname === '/storage' ||
                 parsedUrl.pathname.startsWith('/storage/')
             ) {
-                return (
-                    parsedUrl.pathname +
-                    parsedUrl.search +
-                    parsedUrl.hash
-                );
+                return `${STATIC_STORAGE_BASE_URL}${parsedUrl.pathname}${parsedUrl.search}${parsedUrl.hash}`;
             }
 
             return value;
@@ -58,15 +72,29 @@ const normalizeImageUrl = (rawValue) => {
         }
     }
 
-    const cleanPath = value.replace(/\\/g, '/').replace(/^\/+/, '');
+    // Bersihkan format path.
+    const cleanPath = value
+        .replace(/\\/g, '/')
+        .replace(/^\/+/, '');
 
     if (!cleanPath) return '';
 
-    if (cleanPath === 'storage') return '/storage';
+    // Path storage sudah benar.
+    if (cleanPath === 'storage') {
+        return `${STATIC_STORAGE_BASE_URL}/storage`;
+    }
 
-    if (cleanPath.startsWith('storage/')) return `/${cleanPath}`;
+    if (cleanPath.startsWith('storage/')) {
+        return `${STATIC_STORAGE_BASE_URL}/${cleanPath}`;
+    }
 
-    return `/storage/${cleanPath}`;
+    // Hilangkan prefix public/ jika API mengirimkannya.
+    if (cleanPath.startsWith('public/storage/')) {
+        return `${STATIC_STORAGE_BASE_URL}/${cleanPath.replace('public/', '')}`;
+    }
+
+    // Path relatif lainnya dianggap berada di dalam storage.
+    return `${STATIC_STORAGE_BASE_URL}/storage/${cleanPath}`;
 };
 
 /*
@@ -79,7 +107,16 @@ const getRawImagePath = (item) => {
     if (typeof item === 'string') return item;
 
     if (item && typeof item === 'object') {
-        return item.image || item.src || item.url || item.path || '';
+        return (
+            item.image ||
+            item.src ||
+            item.url ||
+            item.path ||
+            item.image_url ||
+            item.file_path ||
+            item.file ||
+            ''
+        );
     }
 
     return '';
@@ -126,7 +163,6 @@ const normalizeTechnologies = (technologies) => {
 |--------------------------------------------------------------------------
 | NAMA FILE GAMBAR ASLI
 |--------------------------------------------------------------------------
-| Contoh: "storage/projects/abc_123.png" -> "abc_123.png"
 */
 
 const getFileNameFromPath = (rawPath) => {
@@ -137,7 +173,8 @@ const getFileNameFromPath = (rawPath) => {
         .split('?')[0]
         .replace(/\\/g, '/');
 
-    const lastSegment = cleanPath.split('/').filter(Boolean).pop() || '';
+    const lastSegment =
+        cleanPath.split('/').filter(Boolean).pop() || '';
 
     try {
         return decodeURIComponent(lastSegment);
@@ -167,7 +204,12 @@ const getProjectImages = (project) => {
     const projectTitle = project?.title || 'Project';
 
     const thumbnail = getRawImagePath({
-        image: project?.thumbnail_url || project?.thumbnail || '',
+        image:
+            project?.thumbnail_url ||
+            project?.thumbnail ||
+            project?.image_url ||
+            project?.image ||
+            '',
     });
 
     if (thumbnail) {
@@ -177,19 +219,28 @@ const getProjectImages = (project) => {
         });
     }
 
-    if (Array.isArray(project?.image_urls)) {
-        combinedImages.push(...project.image_urls);
-    }
+    // Dokumentasi dari berbagai kemungkinan field API.
+    const imageCollections = [
+        project?.image_urls,
+        project?.images,
+        project?.documentations,
+        project?.documentation,
+        project?.project_images,
+        project?.photos,
+    ];
 
-    if (Array.isArray(project?.images)) {
-        combinedImages.push(...project.images);
-    }
+    imageCollections.forEach((collection) => {
+        if (Array.isArray(collection)) {
+            combinedImages.push(...collection);
+        }
+    });
 
     const seenUrls = new Set();
     const result = [];
 
     combinedImages.forEach((item, index) => {
-        const image = normalizeImageUrl(getRawImagePath(item));
+        const rawPath = getRawImagePath(item);
+        const image = normalizeImageUrl(rawPath);
 
         if (!image) return;
 
@@ -199,11 +250,11 @@ const getProjectImages = (project) => {
 
         seenUrls.add(duplicateKey);
 
-        const isObject = typeof item === 'object' && item !== null;
+        const isObject =
+            typeof item === 'object' && item !== null;
+
         const position = result.length + 1;
 
-        // Label = NAMA FILE ASLI (bukan teks buatan).
-        // Prioritas: field nama file dari API -> nama file dari path/URL.
         const fileName =
             (isObject &&
                 firstFilled(
@@ -213,15 +264,22 @@ const getProjectImages = (project) => {
                     item.filename,
                     item.name
                 )) ||
-            getFileNameFromPath(getRawImagePath(item)) ||
+            getFileNameFromPath(rawPath) ||
             `${projectTitle} ${position}`;
 
         result.push({
-            id: (isObject && item.id) ?? `${project?.id ?? 'project'}-image-${index}`,
+            id:
+                (isObject && item.id) ??
+                `${project?.id ?? 'project'}-image-${index}`,
             image,
             label: fileName,
             alt:
-                (isObject && firstFilled(item.alt, item.caption, item.title)) ||
+                (isObject &&
+                    firstFilled(
+                        item.alt,
+                        item.caption,
+                        item.title
+                    )) ||
                 fileName,
         });
     });
@@ -250,17 +308,29 @@ const formatMonthYear = (date, isEnglish) => {
 
     const [year, month] = dateOnly.split('-').map(Number);
 
-    if (!year || !month || month < 1 || month > 12) return '';
+    if (!year || !month || month < 1 || month > 12) {
+        return '';
+    }
 
     return new Date(year, month - 1, 1).toLocaleDateString(
         isEnglish ? 'en-US' : 'id-ID',
-        { month: 'short', year: 'numeric' }
+        {
+            month: 'short',
+            year: 'numeric',
+        }
     );
 };
 
 const getProjectPeriod = (project, isEnglish) => {
-    const start = formatMonthYear(project?.start_date, isEnglish);
-    const end = formatMonthYear(project?.end_date, isEnglish);
+    const start = formatMonthYear(
+        project?.start_date,
+        isEnglish
+    );
+
+    const end = formatMonthYear(
+        project?.end_date,
+        isEnglish
+    );
 
     if (start && end) return `${start} – ${end}`;
 
@@ -268,9 +338,17 @@ const getProjectPeriod = (project, isEnglish) => {
 };
 
 const getProjectYear = (project) => {
-    if (project?.create_year) return String(project.create_year);
-    if (project?.start_date) return String(project.start_date).slice(0, 4);
-    if (project?.end_date) return String(project.end_date).slice(0, 4);
+    if (project?.create_year) {
+        return String(project.create_year);
+    }
+
+    if (project?.start_date) {
+        return String(project.start_date).slice(0, 4);
+    }
+
+    if (project?.end_date) {
+        return String(project.end_date).slice(0, 4);
+    }
 
     return '';
 };
@@ -278,10 +356,16 @@ const getProjectYear = (project) => {
 const isFeatured = (project) => {
     const value = project?.is_featured;
 
-    return value === true || value === 1 || value === '1' || value === 'true';
+    return (
+        value === true ||
+        value === 1 ||
+        value === '1' ||
+        value === 'true'
+    );
 };
 
-const formatCount = (count) => new Intl.NumberFormat('en-US').format(count);
+const formatCount = (count) =>
+    new Intl.NumberFormat('en-US').format(count);
 
 /*
 |--------------------------------------------------------------------------
@@ -299,10 +383,7 @@ export default function Projects() {
     const [error, setError] = useState('');
     const [reloadKey, setReloadKey] = useState(0);
 
-    // Modal arsip: hanya berisi dokumentasi (gambar).
     const [selectedProject, setSelectedProject] = useState(null);
-
-    // Modal detail: berisi deskripsi lengkap dari admin.
     const [detailProject, setDetailProject] = useState(null);
 
     const text = {
@@ -319,7 +400,6 @@ export default function Projects() {
         projectPeriod: isEnglish ? 'Project Period' : 'Periode Proyek',
         year: isEnglish ? 'Year' : 'Tahun',
 
-        // Kartu arsip
         cardLabel: isEnglish ? 'PROJECT ARCHIVE' : 'ARSIP PROYEK',
         cardKicker: isEnglish ? 'DOCUMENTATION ARCHIVE' : 'ARSIP DOKUMENTASI',
         cardSuffix: isEnglish ? 'Archive' : 'Arsip',
@@ -332,7 +412,6 @@ export default function Projects() {
             ? 'No project images available yet.'
             : 'Belum ada gambar untuk proyek ini.',
 
-        // Modal arsip (dokumentasi saja)
         modalEyebrow: isEnglish ? 'PROJECT COLLECTION' : 'KOLEKSI PROYEK',
         modalSubtitle: isEnglish
             ? 'Browse the documentation images below.'
@@ -344,7 +423,6 @@ export default function Projects() {
         closeLabel: isEnglish ? 'Close dialog' : 'Tutup jendela',
         viewImage: isEnglish ? 'Open image in a new tab' : 'Buka gambar di tab baru',
 
-        // Tombol & modal detail
         readDetail: isEnglish ? 'Read Details' : 'Baca Detail',
         detailEyebrow: isEnglish ? 'PROJECT DETAIL' : 'DETAIL PROYEK',
         detailSubtitle: isEnglish
@@ -359,7 +437,6 @@ export default function Projects() {
         projectLink: isEnglish ? 'Visit Project' : 'Kunjungi Proyek',
         githubLink: isEnglish ? 'View Repository' : 'Lihat Repository',
 
-        // Status
         loading: isEnglish ? 'Loading projects...' : 'Memuat proyek...',
         empty: isEnglish ? 'No projects yet' : 'Belum Ada Proyek',
         emptyDescription: isEnglish
@@ -387,7 +464,9 @@ export default function Projects() {
             try {
                 const response = await fetch('/api/projects', {
                     method: 'GET',
-                    headers: { Accept: 'application/json' },
+                    headers: {
+                        Accept: 'application/json',
+                    },
                     cache: 'no-store',
                     signal: controller.signal,
                 });
@@ -419,6 +498,11 @@ export default function Projects() {
                 }
 
                 if (!controller.signal.aborted) {
+                    console.log(
+                        'Projects API Data:',
+                        projectData
+                    );
+
                     setProjects(projectData);
                 }
             } catch (err) {
@@ -445,16 +529,19 @@ export default function Projects() {
 
     /*
     |--------------------------------------------------------------------------
-    | LOCK SCROLL DAN ESCAPE (KEDUA MODAL)
+    | LOCK SCROLL DAN ESCAPE
     |--------------------------------------------------------------------------
     */
 
-    const isModalOpen = Boolean(selectedProject || detailProject);
+    const isModalOpen = Boolean(
+        selectedProject || detailProject
+    );
 
     useEffect(() => {
         if (!isModalOpen) return undefined;
 
-        const previousOverflow = document.body.style.overflow;
+        const previousOverflow =
+            document.body.style.overflow;
 
         const handleKeyDown = (event) => {
             if (event.key === 'Escape') {
@@ -464,19 +551,34 @@ export default function Projects() {
         };
 
         document.body.style.overflow = 'hidden';
-        document.addEventListener('keydown', handleKeyDown);
+
+        document.addEventListener(
+            'keydown',
+            handleKeyDown
+        );
 
         return () => {
-            document.body.style.overflow = previousOverflow;
-            document.removeEventListener('keydown', handleKeyDown);
+            document.body.style.overflow =
+                previousOverflow;
+
+            document.removeEventListener(
+                'keydown',
+                handleKeyDown
+            );
         };
     }, [isModalOpen]);
 
-    const openArchive = (project) => setSelectedProject(project);
-    const closeArchive = () => setSelectedProject(null);
+    const openArchive = (project) =>
+        setSelectedProject(project);
 
-    const openDetail = (project) => setDetailProject(project);
-    const closeDetail = () => setDetailProject(null);
+    const closeArchive = () =>
+        setSelectedProject(null);
+
+    const openDetail = (project) =>
+        setDetailProject(project);
+
+    const closeDetail = () =>
+        setDetailProject(null);
 
     /*
     |--------------------------------------------------------------------------
@@ -491,7 +593,9 @@ export default function Projects() {
 
         return (
             <div className="visitor-projects-technologies">
-                <p className="visitor-projects-label">{text.technology}</p>
+                <p className="visitor-projects-label">
+                    {text.technology}
+                </p>
 
                 <div className="visitor-projects-tags">
                     {items.map((technology, index) => (
@@ -509,7 +613,7 @@ export default function Projects() {
 
     /*
     |--------------------------------------------------------------------------
-    | KARTU ARSIP (SISI KANAN)
+    | KARTU ARSIP
     |--------------------------------------------------------------------------
     */
 
@@ -538,7 +642,10 @@ export default function Projects() {
                                     <span className="visitor-projects-archive-kicker">
                                         {text.cardKicker}
                                     </span>
-                                    <h4>{`${title} ${text.cardSuffix}`}</h4>
+
+                                    <h4>
+                                        {`${title} ${text.cardSuffix}`}
+                                    </h4>
                                 </div>
 
                                 <span className="visitor-projects-archive-card-icon">
@@ -572,7 +679,11 @@ export default function Projects() {
                     >
                         {previewImages.map((item, index) => (
                             <div
-                                key={item.id != null && item.id !== false ? String(item.id) : `preview-${index}`}
+                                key={
+                                    item.id != null
+                                        ? String(item.id)
+                                        : `preview-${index}`
+                                }
                                 className={`visitor-projects-archive-preview-item visitor-projects-archive-preview-item--${index + 1}`}
                             >
                                 <img
@@ -580,7 +691,13 @@ export default function Projects() {
                                     alt={item.alt}
                                     loading="lazy"
                                     onError={(event) => {
-                                        event.currentTarget.style.visibility = 'hidden';
+                                        console.error(
+                                            'Project preview image failed:',
+                                            item.image
+                                        );
+
+                                        event.currentTarget.style.visibility =
+                                            'hidden';
                                     }}
                                 />
                             </div>
@@ -609,7 +726,10 @@ export default function Projects() {
                                 <span className="visitor-projects-archive-kicker">
                                     {text.cardKicker}
                                 </span>
-                                <h4>{`${title} ${text.cardSuffix}`}</h4>
+
+                                <h4>
+                                    {`${title} ${text.cardSuffix}`}
+                                </h4>
                             </div>
 
                             <span className="visitor-projects-archive-card-icon">
@@ -639,22 +759,32 @@ export default function Projects() {
 
     const renderProjectItem = (project, index) => {
         const images = getProjectImages(project);
-        const period = getProjectPeriod(project, isEnglish);
+        const period = getProjectPeriod(
+            project,
+            isEnglish
+        );
+
         const year = getProjectYear(project);
         const featured = isFeatured(project);
         const reversed = index % 2 === 1;
 
-        // Deskripsi ringkas di halaman; deskripsi lengkap ada di modal detail.
         const hasDescription = Boolean(
-            project?.short_description || project?.description
+            project?.short_description ||
+            project?.description
         );
 
         return (
             <article
-                key={project?.id ?? project?.slug ?? `project-${index}`}
+                key={
+                    project?.id ??
+                    project?.slug ??
+                    `project-${index}`
+                }
                 className={[
                     'visitor-projects-item',
-                    reversed ? 'visitor-projects-item--reverse' : '',
+                    reversed
+                        ? 'visitor-projects-item--reverse'
+                        : '',
                 ]
                     .filter(Boolean)
                     .join(' ')}
@@ -674,7 +804,9 @@ export default function Projects() {
                                 {project?.category || text.project}
                             </p>
 
-                            <h3>{project?.title || 'Untitled Project'}</h3>
+                            <h3>
+                                {project?.title || 'Untitled Project'}
+                            </h3>
                         </div>
                     </div>
 
@@ -684,11 +816,15 @@ export default function Projects() {
                         </p>
                     )}
 
-                    {(project?.role || period || year || featured) && (
+                    {(project?.role ||
+                        period ||
+                        year ||
+                        featured) && (
                         <div className="visitor-projects-meta">
                             {project?.role && (
                                 <div className="visitor-projects-meta-item">
                                     <Code2 size={16} />
+
                                     <span>
                                         {text.role}: {project.role}
                                     </span>
@@ -705,6 +841,7 @@ export default function Projects() {
                             {!period && year && (
                                 <div className="visitor-projects-meta-item">
                                     <CalendarDays size={16} />
+
                                     <span>
                                         {text.year} {year}
                                     </span>
@@ -723,7 +860,8 @@ export default function Projects() {
                     {hasDescription && (
                         <div className="visitor-projects-description">
                             <p className="visitor-projects-description-text">
-                                {project.short_description || project.description}
+                                {project.short_description ||
+                                    project.description}
                             </p>
 
                             <button
@@ -738,9 +876,12 @@ export default function Projects() {
                         </div>
                     )}
 
-                    {renderTechnologies(project?.technologies)}
+                    {renderTechnologies(
+                        project?.technologies
+                    )}
 
-                    {(project?.project_url || project?.github_url) && (
+                    {(project?.project_url ||
+                        project?.github_url) && (
                         <div className="visitor-projects-actions">
                             {project?.project_url && (
                                 <a
@@ -780,7 +921,7 @@ export default function Projects() {
 
     /*
     |--------------------------------------------------------------------------
-    | MODAL ARSIP (HANYA DOKUMENTASI)
+    | MODAL ARSIP
     |--------------------------------------------------------------------------
     */
 
@@ -816,7 +957,11 @@ export default function Projects() {
                                 <span className="visitor-projects-archive-kicker">
                                     {text.modalEyebrow}
                                 </span>
-                                <h3>{`${title} ${text.cardSuffix}`}</h3>
+
+                                <h3>
+                                    {`${title} ${text.cardSuffix}`}
+                                </h3>
+
                                 <p>{text.modalSubtitle}</p>
                             </div>
                         </div>
@@ -833,7 +978,6 @@ export default function Projects() {
                     </header>
 
                     <div className="visitor-projects-archive-modal-body">
-                        {/* DOKUMENTASI PROYEK */}
                         <div className="visitor-projects-archive-gallery">
                             <div className="visitor-projects-archive-gallery-heading">
                                 <div className="visitor-projects-archive-section-heading">
@@ -845,6 +989,7 @@ export default function Projects() {
                                         <span className="visitor-projects-archive-kicker">
                                             {text.docKicker}
                                         </span>
+
                                         <h4>{text.docTitle}</h4>
                                     </div>
                                 </div>
@@ -858,7 +1003,11 @@ export default function Projects() {
                                 <div className="visitor-projects-archive-image-grid">
                                     {images.map((item, index) => (
                                         <figure
-                                            key={item.id != null && item.id !== false ? String(item.id) : `image-${index}`}
+                                            key={
+                                                item.id != null
+                                                    ? String(item.id)
+                                                    : `image-${index}`
+                                            }
                                             className="visitor-projects-archive-image-card"
                                         >
                                             <a
@@ -873,9 +1022,11 @@ export default function Projects() {
                                                     src={item.image}
                                                     alt={item.alt}
                                                     loading="lazy"
-                                                    onError={(event) => {
-                                                        event.currentTarget.style.visibility =
-                                                            'hidden';
+                                                    onError={() => {
+                                                        console.error(
+                                                            'Project documentation image failed:',
+                                                            item.image
+                                                        );
                                                     }}
                                                 />
 
@@ -889,6 +1040,7 @@ export default function Projects() {
                                                 <span className="visitor-projects-archive-image-number">
                                                     {String(index + 1).padStart(2, '0')}
                                                 </span>
+
                                                 <span className="visitor-projects-archive-image-caption">
                                                     {item.label}
                                                 </span>
@@ -924,14 +1076,12 @@ export default function Projects() {
             </div>
         );
 
-        // Portal agar modal selalu menimpa navbar dan tidak terpengaruh
-        // transform/overflow dari elemen induk.
         return createPortal(modal, document.body);
     };
 
     /*
     |--------------------------------------------------------------------------
-    | MODAL DETAIL (DESKRIPSI LENGKAP)
+    | MODAL DETAIL
     |--------------------------------------------------------------------------
     */
 
@@ -940,9 +1090,17 @@ export default function Projects() {
 
         const project = detailProject;
         const title = project.title || 'Untitled Project';
-        const period = getProjectPeriod(project, isEnglish);
+
+        const period = getProjectPeriod(
+            project,
+            isEnglish
+        );
+
         const year = getProjectYear(project);
-        const technologies = normalizeTechnologies(project.technologies);
+
+        const technologies = normalizeTechnologies(
+            project.technologies
+        );
 
         const modal = (
             <div
@@ -969,6 +1127,7 @@ export default function Projects() {
                                 <span className="visitor-projects-archive-kicker">
                                     {text.detailEyebrow}
                                 </span>
+
                                 <h3>{title}</h3>
                                 <p>{text.detailSubtitle}</p>
                             </div>
@@ -996,6 +1155,7 @@ export default function Projects() {
                                     <span className="visitor-projects-archive-kicker">
                                         {text.overviewKicker}
                                     </span>
+
                                     <h4>{text.description}</h4>
                                 </div>
                             </div>
@@ -1017,6 +1177,7 @@ export default function Projects() {
                                     <span className="visitor-projects-archive-info-icon">
                                         <Code2 size={16} />
                                     </span>
+
                                     <div>
                                         <strong>{text.role}</strong>
                                         <p>{project.role}</p>
@@ -1029,9 +1190,13 @@ export default function Projects() {
                                     <span className="visitor-projects-archive-info-icon">
                                         <CalendarDays size={16} />
                                     </span>
+
                                     <div>
                                         <strong>{text.projectPeriod}</strong>
-                                        <p>{period || `${text.year} ${year}`}</p>
+                                        <p>
+                                            {period ||
+                                                `${text.year} ${year}`}
+                                        </p>
                                     </div>
                                 </div>
                             )}
@@ -1041,19 +1206,22 @@ export default function Projects() {
                                     <h5>{text.technology}</h5>
 
                                     <div className="visitor-projects-archive-tech-list">
-                                        {technologies.map((technology, index) => (
-                                            <span
-                                                key={`${technology}-${index}`}
-                                                className="visitor-projects-tag"
-                                            >
-                                                {technology}
-                                            </span>
-                                        ))}
+                                        {technologies.map(
+                                            (technology, index) => (
+                                                <span
+                                                    key={`${technology}-${index}`}
+                                                    className="visitor-projects-tag"
+                                                >
+                                                    {technology}
+                                                </span>
+                                            )
+                                        )}
                                     </div>
                                 </div>
                             )}
 
-                            {(project.project_url || project.github_url) && (
+                            {(project.project_url ||
+                                project.github_url) && (
                                 <div className="visitor-projects-archive-links">
                                     {project.project_url && (
                                         <a
@@ -1114,7 +1282,11 @@ export default function Projects() {
                 aria-busy="true"
             >
                 <div className="visitor-projects-loading">
-                    <Loader2 size={28} className="visitor-projects-loading-icon" />
+                    <Loader2
+                        size={28}
+                        className="visitor-projects-loading-icon"
+                    />
+
                     <span>{text.loading}</span>
                 </div>
             </section>
@@ -1136,18 +1308,26 @@ export default function Projects() {
             >
                 <div className="visitor-projects-container">
                     <div className="visitor-projects-intro">
-                        <p className="visitor-projects-eyebrow">{text.eyebrow}</p>
+                        <p className="visitor-projects-eyebrow">
+                            {text.eyebrow}
+                        </p>
+
                         <h2>{text.title}</h2>
                     </div>
 
-                    <div className="visitor-projects-error" role="alert">
+                    <div
+                        className="visitor-projects-error"
+                        role="alert"
+                    >
                         <FolderKanban size={28} />
                         <p>{error}</p>
 
                         <button
                             type="button"
                             className="visitor-projects-detail-button"
-                            onClick={() => setReloadKey((key) => key + 1)}
+                            onClick={() =>
+                                setReloadKey((key) => key + 1)
+                            }
                         >
                             <RefreshCw size={16} />
                             {text.retry}
@@ -1173,15 +1353,24 @@ export default function Projects() {
             >
                 <div className="visitor-projects-container">
                     <div className="visitor-projects-intro">
-                        <p className="visitor-projects-eyebrow">{text.eyebrow}</p>
+                        <p className="visitor-projects-eyebrow">
+                            {text.eyebrow}
+                        </p>
+
                         <h2>{text.title}</h2>
-                        <p className="visitor-projects-intro-text">{text.intro}</p>
+
+                        <p className="visitor-projects-intro-text">
+                            {text.intro}
+                        </p>
                     </div>
 
                     {projects.length > 0 ? (
                         <div className="visitor-projects-list">
                             {projects.map((project, index) =>
-                                renderProjectItem(project, index)
+                                renderProjectItem(
+                                    project,
+                                    index
+                                )
                             )}
                         </div>
                     ) : (

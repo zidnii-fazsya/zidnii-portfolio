@@ -1,3 +1,4 @@
+
 import React, { useEffect, useMemo, useState } from 'react';
 import { Zap } from 'lucide-react';
 
@@ -8,16 +9,119 @@ import useLanguage from '../utils/useLanguage';
 |--------------------------------------------------------------------------
 | CONFIG
 |--------------------------------------------------------------------------
-| MIN_CARDS_PER_GROUP : jumlah kartu minimum dalam satu grup agar lebar
-|                       track selalu melebihi lebar container.
-| SECONDS_PER_CARD    : kecepatan marquee (detik per kartu).
 */
 
 const MIN_CARDS_PER_GROUP = 8;
 const SECONDS_PER_CARD = 5;
 
+/*
+|--------------------------------------------------------------------------
+| NORMALIZE SKILL LOGO URL
+|--------------------------------------------------------------------------
+| Menangani beberapa kemungkinan format URL dari Laravel API:
+| - skills/logo.png
+| - storage/skills/logo.png
+| - /storage/skills/logo.png
+| - public/storage/skills/logo.png
+| - https://domain.com/storage/skills/logo.png
+*/
+
+const getLogoUrl = (rawLogo) => {
+    if (!rawLogo || typeof rawLogo !== 'string') {
+        return null;
+    }
+
+    const logo = rawLogo.trim();
+
+    if (!logo) {
+        return null;
+    }
+
+    // Data URL dan Blob URL tidak perlu diubah.
+    if (/^(data:|blob:)/i.test(logo)) {
+        return logo;
+    }
+
+    // URL lengkap.
+    if (/^https?:\/\//i.test(logo)) {
+        try {
+            const parsedUrl = new URL(logo);
+
+            const pathname = decodeURIComponent(parsedUrl.pathname);
+
+            // Jika URL mengarah ke Laravel public storage,
+            // gunakan path yang sama pada domain Netlify.
+            if (
+                pathname === '/storage' ||
+                pathname.startsWith('/storage/')
+            ) {
+                return `${pathname}${parsedUrl.search}${parsedUrl.hash}`;
+            }
+
+            if (pathname.startsWith('/public/storage/')) {
+                return `${pathname.replace('/public/storage/', '/storage/')}${parsedUrl.search}${parsedUrl.hash}`;
+            }
+
+            return logo;
+        } catch {
+            return logo;
+        }
+    }
+
+    // Hilangkan slash di awal agar path konsisten.
+    let cleanPath = logo.replace(/\\/g, '/').replace(/^\/+/, '');
+
+    // Jika path berasal dari public/storage.
+    cleanPath = cleanPath.replace(/^public\/storage\//i, '');
+
+    // Jika path sudah mengandung storage/.
+    cleanPath = cleanPath.replace(/^storage\//i, '');
+
+    // Jika hanya nama file atau folder skills/.
+    return `/storage/${cleanPath}`;
+};
+
+/*
+|--------------------------------------------------------------------------
+| GET SKILL LOGO
+|--------------------------------------------------------------------------
+| Mendukung logo berbentuk string maupun object.
+*/
+
+const extractLogo = (skill) => {
+    if (!skill) {
+        return null;
+    }
+
+    const logo = skill.logo;
+
+    if (typeof logo === 'string') {
+        return getLogoUrl(logo);
+    }
+
+    if (logo && typeof logo === 'object') {
+        const logoPath =
+            logo.url ||
+            logo.src ||
+            logo.path ||
+            logo.file_path ||
+            logo.image_path;
+
+        return getLogoUrl(logoPath);
+    }
+
+    return null;
+};
+
+/*
+|--------------------------------------------------------------------------
+| COMPONENT
+|--------------------------------------------------------------------------
+*/
+
 export default function VisitorSkills() {
     const { t } = useLanguage();
+
     const [skills, setSkills] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
@@ -41,18 +145,26 @@ export default function VisitorSkills() {
                     headers: {
                         Accept: 'application/json',
                     },
+                    cache: 'no-store',
                     signal: controller.signal,
                 });
 
                 if (!response.ok) {
-                    throw new Error('Gagal mengambil data skills.');
+                    throw new Error(
+                        `Gagal mengambil data skills. Status: ${response.status}`
+                    );
                 }
 
                 const data = await response.json();
 
-                setSkills(
-                    Array.isArray(data.skills) ? data.skills : []
-                );
+                const skillData = Array.isArray(data)
+                    ? data
+                    : Array.isArray(data.skills)
+                        ? data.skills
+                        : [];
+
+                setSkills(skillData);
+
             } catch (err) {
                 if (err.name === 'AbortError') {
                     return;
@@ -64,6 +176,7 @@ export default function VisitorSkills() {
                     err.message ||
                     'Terjadi kesalahan saat mengambil data skills.'
                 );
+
             } finally {
                 if (!controller.signal.aborted) {
                     setLoading(false);
@@ -78,7 +191,7 @@ export default function VisitorSkills() {
 
     /*
     |--------------------------------------------------------------------------
-    | SPLIT ALL SKILLS INTO 2 ROWS (NO GROUPING BY AREA)
+    | SPLIT ALL SKILLS INTO 2 ROWS
     |--------------------------------------------------------------------------
     */
 
@@ -87,7 +200,6 @@ export default function VisitorSkills() {
             return [];
         }
 
-        // Hanya 1 skill: tidak mungkin dibagi 2 baris
         if (skills.length === 1) {
             return [skills];
         }
@@ -102,38 +214,20 @@ export default function VisitorSkills() {
 
     /*
     |--------------------------------------------------------------------------
-    | GET SKILL LOGO URL
-    |--------------------------------------------------------------------------
-    */
-
-    const getLogoUrl = (logo) => {
-        if (!logo) {
-            return null;
-        }
-
-        if (/^https?:\/\//i.test(logo)) {
-            return logo;
-        }
-
-        if (logo.startsWith('/')) {
-            return logo;
-        }
-
-        return `/storage/${logo}`;
-    };
-
-    /*
-    |--------------------------------------------------------------------------
     | RENDER SKILL CARD
     |--------------------------------------------------------------------------
     */
 
     const renderSkillCard = (skill, key) => {
-        const logoUrl = getLogoUrl(skill.logo);
+        const logoUrl = extractLogo(skill);
 
-        const level = (
+        const level = String(
             skill.level || 'Beginner'
-        ).toLowerCase();
+        )
+            .toLowerCase()
+            .replace(/[^a-z0-9-]/g, '-');
+
+        const skillName = skill.skill_name || 'Skill';
 
         return (
             <article className="skill-card" key={key}>
@@ -143,8 +237,9 @@ export default function VisitorSkills() {
                     {logoUrl && (
                         <img
                             src={logoUrl}
-                            alt={`${skill.skill_name} logo`}
+                            alt={`${skillName} logo`}
                             loading="lazy"
+                            decoding="async"
                             onError={(event) => {
                                 event.currentTarget.style.display = 'none';
 
@@ -157,6 +252,11 @@ export default function VisitorSkills() {
                                 if (fallback) {
                                     fallback.style.display = 'flex';
                                 }
+
+                                console.error(
+                                    'Gagal memuat logo skill:',
+                                    logoUrl
+                                );
                             }}
                         />
                     )}
@@ -168,16 +268,14 @@ export default function VisitorSkills() {
                         }}
                         aria-hidden="true"
                     >
-                        {skill.skill_name
-                            ?.charAt(0)
-                            ?.toUpperCase() || '?'}
+                        {skillName.charAt(0).toUpperCase() || '?'}
                     </span>
                 </div>
 
                 {/* SKILL NAME AND LEVEL */}
 
                 <div className="skill-card-body">
-                    <h4>{skill.skill_name}</h4>
+                    <h4>{skillName}</h4>
 
                     {skill.level && (
                         <span
@@ -203,12 +301,13 @@ export default function VisitorSkills() {
     |--------------------------------------------------------------------------
     | RENDER ONE MARQUEE ROW
     |--------------------------------------------------------------------------
-    | Track berisi 2 grup identik. Animasi menggeser track sebesar -50%
-    | sehingga loop terlihat tanpa putus. Setiap grup mengulang kartu
-    | sampai cukup lebar.
     */
 
     const renderRow = (rowSkills, rowIndex) => {
+        if (!rowSkills.length) {
+            return null;
+        }
+
         const repeat = Math.max(
             1,
             Math.ceil(MIN_CARDS_PER_GROUP / rowSkills.length)
@@ -241,7 +340,9 @@ export default function VisitorSkills() {
                     className={`skills-card-track ${
                         reverse ? 'skills-card-track-reverse' : ''
                     }`}
-                    style={{ '--marquee-duration': `${duration}s` }}
+                    style={{
+                        '--marquee-duration': `${duration}s`,
+                    }}
                 >
                     {renderGroup(0)}
                     {renderGroup(1)}
@@ -328,6 +429,7 @@ export default function VisitorSkills() {
                         )}
                     </div>
                 )}
+
             </section>
         </main>
     );
