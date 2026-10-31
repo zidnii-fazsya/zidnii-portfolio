@@ -4,60 +4,37 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
 
-
 /* =========================================================
    NAVBAR
    ========================================================= */
 
 .visitor-navbar {
     position: fixed;
-
     top: 0;
     left: 0;
-
     width: 100%;
-
     z-index: 9999;
-
     box-sizing: border-box;
-
     padding: 18px 32px;
-
     background: transparent;
-
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-
     border: none;
-
     box-shadow: none;
-
     transition:
         opacity 0.3s ease,
         transform 0.3s ease;
 }
 
-
-/* =========================================================
-   NAVBAR INNER
-   ========================================================= */
-
 .visitor-navbar-inner {
     width: 100%;
-
     margin: 0;
-
     display: flex;
-
     align-items: center;
-
     justify-content: flex-start;
-
     gap: 0;
-
     box-sizing: border-box;
 }
-
 
 /* =========================================================
    LOGO
@@ -65,48 +42,27 @@
 
 .visitor-logo {
     display: inline-flex;
-
     align-items: center;
-
     text-decoration: none;
-
     white-space: nowrap;
-
     flex-shrink: 0;
-
-    font-family:
-        'Inter',
-        'Helvetica Neue',
-        Arial,
-        sans-serif;
-
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     font-size: 22px;
-
     font-weight: 800;
-
     letter-spacing: 0.18em;
-
     color: #ffffff;
-
-    text-shadow:
-        0 2px 10px rgba(0, 0, 0, 0.45);
-
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
     transition:
         opacity 0.3s ease,
         transform 0.3s ease,
         text-shadow 0.3s ease;
 }
 
-
 .visitor-logo:hover {
     opacity: 0.88;
-
     transform: translateY(-1px);
-
-    text-shadow:
-        0 4px 16px rgba(0, 0, 0, 0.55);
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.55);
 }
-
 
 /* =========================================================
    NAVIGATION WRAPPER
@@ -114,109 +70,58 @@
 
 .visitor-nav {
     margin-left: auto;
-
     display: flex;
-
     align-items: center;
-
     justify-content: flex-end;
-
     min-width: 0;
-
     max-width: none;
-
     overflow: visible;
 }
-
 
 /* =========================================================
    RUBBER SEGMENT
+   Di-scope dengan .visitor-nav supaya SELALU menang atas
+   RubberSegment.css (yang punya background track #27272a).
    ========================================================= */
 
-.rubber-segment {
+.visitor-nav .rubber-segment {
     display: flex;
-
     align-items: center;
-
     justify-content: flex-end;
-
     gap: 3px;
-
     padding: 4px;
-
     border-radius: 999px;
-
     background: transparent;
-
     border: none;
-
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
-
     box-shadow: none;
-
     overflow: visible;
-
-    transition:
-        opacity 0.3s ease;
+    transition: opacity 0.3s ease;
 }
 
-
-/* =========================================================
-   RUBBER SEGMENT ITEM
-   ========================================================= */
-
-.rubber-segment-item {
+.visitor-nav .rubber-segment-item {
     position: relative;
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     flex-shrink: 0;
-
     border: none;
-
     outline: none;
-
     background: transparent;
-
-    color:
-        rgba(255, 255, 255, 0.78);
-
+    color: rgba(255, 255, 255, 0.78);
     padding: 9px 13px;
-
     min-height: 38px;
-
     border-radius: 999px;
-
     cursor: pointer;
-
     user-select: none;
-
     white-space: nowrap;
-
-    font-family:
-        'Manrope',
-        'Inter',
-        'Helvetica Neue',
-        Arial,
-        sans-serif;
-
+    font-family: 'Manrope', 'Inter', 'Helvetica Neue', Arial, sans-serif;
     font-size: 11.5px;
-
     font-weight: 500;
-
     letter-spacing: 0.01em;
-
     line-height: 1;
-
-    text-shadow:
-        0 2px 8px
-        rgba(0, 0, 0, 0.45);
-
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
     transition:
         color 0.25s ease,
         background 0.25s ease,
@@ -224,84 +129,57 @@
         box-shadow 0.25s ease;
 }
 
-
-/* =========================================================
-   RUBBER ITEM - HOVER
-   ========================================================= */
-
-.rubber-segment-item:hover {
+.visitor-nav .rubber-segment-item:hover {
     color: #ffffff;
-
-    background:
-        rgba(255, 255, 255, 0.08);
-
-    transform:
-        translateY(-1px);
-
-    text-shadow:
-        0 3px 10px
-        rgba(0, 0, 0, 0.55);
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+    text-shadow: 0 3px 10px rgba(0, 0, 0, 0.55);
 }
 
-
-/* =========================================================
-   RUBBER ITEM - ACTIVE
-   ========================================================= */
-
-.rubber-segment-item.active {
+.visitor-nav .rubber-segment-item.active {
     color: #ffffff;
-
-    background:
-        linear-gradient(
-            135deg,
-            rgba(61, 20, 30, 0.96),
-            rgba(83, 27, 40, 0.93)
-        );
-
+    background: linear-gradient(
+        135deg,
+        rgba(61, 20, 30, 0.96),
+        rgba(83, 27, 40, 0.93)
+    );
     box-shadow:
-        0 4px 16px
-        rgba(0, 0, 0, 0.25),
-
-        inset 0 1px 0
-        rgba(255, 255, 255, 0.12);
-
+        0 4px 16px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
     font-weight: 600;
-
-    text-shadow:
-        0 2px 8px
-        rgba(0, 0, 0, 0.35);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 }
 
-
-/* =========================================================
-   ACTIVE ITEM - HOVER
-   ========================================================= */
-
-.rubber-segment-item.active:hover {
-    background:
-        linear-gradient(
-            135deg,
-            rgba(72, 23, 35, 0.98),
-            rgba(95, 30, 45, 0.95)
-        );
-
-    transform:
-        translateY(-1px);
+.visitor-nav .rubber-segment-item.active:hover {
+    background: linear-gradient(
+        135deg,
+        rgba(72, 23, 35, 0.98),
+        rgba(95, 30, 45, 0.95)
+    );
+    transform: translateY(-1px);
 }
 
-
-/* =========================================================
-   FOCUS ACCESSIBILITY
-   ========================================================= */
-
-.rubber-segment-item:focus-visible {
-    outline:
-        2px solid
-        rgba(255, 255, 255, 0.75);
-
+.visitor-nav .rubber-segment-item:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.75);
     outline-offset: 3px;
 }
 
+/* =========================================================
+   NAVBAR ACTIONS (DESKTOP)
+   ========================================================= */
+
+.visitor-navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.visitor-mobile-toggle,
+.visitor-mobile-backdrop,
+.visitor-mobile-panel {
+    display: none;
+}
 
 /* =========================================================
    LANGUAGE SWITCHER
@@ -309,84 +187,40 @@
 
 .visitor-language-wrapper {
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
     flex-shrink: 0;
-
     margin-left: 18px;
 }
 
-
-/* =========================================================
-   LANGUAGE SWITCHER CONTAINER
-   ========================================================= */
-
 .language-switcher {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 4px;
-
     white-space: nowrap;
 }
 
-
-/* =========================================================
-   LANGUAGE OPTION
-   ========================================================= */
-
 .language-option {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     gap: 5px;
-
     min-width: 54px;
-
     padding: 7px 9px;
-
     border: none;
-
     outline: none;
-
     background: transparent;
-
-    color:
-        rgba(255, 255, 255, 0.58);
-
+    color: rgba(255, 255, 255, 0.58);
     border-radius: 999px;
-
     cursor: pointer;
-
     white-space: nowrap;
-
-    font-family:
-        'Inter',
-        'Helvetica Neue',
-        Arial,
-        sans-serif;
-
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
     font-size: 10px;
-
     font-weight: 600;
-
     letter-spacing: 0.04em;
-
     line-height: 1;
-
-    text-shadow:
-        0 2px 8px
-        rgba(0, 0, 0, 0.45);
-
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
     transition:
         color 0.25s ease,
         background 0.25s ease,
@@ -394,727 +228,566 @@
         box-shadow 0.25s ease;
 }
 
-
-/* =========================================================
-   LANGUAGE FLAG
-   ========================================================= */
-
 .language-flag {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     width: 17px;
-
     height: 17px;
-
     font-size: 15px;
-
     line-height: 1;
-
     flex-shrink: 0;
-
-    filter:
-        drop-shadow(
-            0 2px 4px
-            rgba(0, 0, 0, 0.35)
-        );
-
-    transition:
-        transform 0.25s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+    transition: transform 0.25s ease;
 }
-
-
-/* =========================================================
-   LANGUAGE CODE
-   ========================================================= */
 
 .language-code {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     font-size: 10px;
-
     font-weight: 700;
-
     letter-spacing: 0.06em;
-
     line-height: 1;
 }
-
-
-/* =========================================================
-   LANGUAGE SEPARATOR
-   ========================================================= */
 
 .language-separator {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     margin: 0 1px;
-
-    color:
-        rgba(255, 255, 255, 0.28);
-
+    color: rgba(255, 255, 255, 0.28);
     font-size: 11px;
-
     font-weight: 400;
-
     line-height: 1;
-
     user-select: none;
 }
 
-
-/* =========================================================
-   LANGUAGE OPTION - HOVER
-   ========================================================= */
-
 .language-option:hover {
     color: #ffffff;
-
-    background:
-        rgba(255, 255, 255, 0.08);
-
-    transform:
-        translateY(-1px);
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
 }
-
 
 .language-option:hover .language-flag {
-    transform:
-        scale(1.08);
+    transform: scale(1.08);
 }
-
-
-/* =========================================================
-   LANGUAGE OPTION - ACTIVE
-   ========================================================= */
 
 .language-option.active {
     color: #ffffff;
-
-    background:
-        rgba(61, 20, 30, 0.94);
-
-    box-shadow:
-        0 4px 14px
-        rgba(0, 0, 0, 0.22);
-
+    background: rgba(61, 20, 30, 0.94);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
     font-weight: 700;
 }
 
-
 .language-option.active .language-flag {
-    transform:
-        scale(1.05);
+    transform: scale(1.05);
 }
 
-
-/* =========================================================
-   LANGUAGE OPTION - FOCUS
-   ========================================================= */
-
 .language-option:focus-visible {
-    outline:
-        2px solid
-        rgba(255, 255, 255, 0.75);
-
+    outline: 2px solid rgba(255, 255, 255, 0.75);
     outline-offset: 3px;
 }
 
-
-/* =========================================================
-   SCROLLED STATE
-   ========================================================= */
-
 .visitor-navbar.scrolled {
     background: transparent;
-
     border: none;
-
     box-shadow: none;
-
     backdrop-filter: none;
-
     -webkit-backdrop-filter: none;
 }
 
-
 /* =========================================================
-   LARGE DESKTOP
-   1440px+
+   LARGE DESKTOP (1440px+)
    ========================================================= */
 
 @media (min-width: 1440px) {
-
     .visitor-navbar {
         padding-left: 48px;
         padding-right: 48px;
     }
 
-
     .visitor-logo {
         font-size: 23px;
     }
 
-
-    .visitor-nav {
-        margin-left: auto;
-    }
-
-
-    .rubber-segment {
+    .visitor-nav .rubber-segment {
         gap: 3px;
     }
 
-
-    .rubber-segment-item {
+    .visitor-nav .rubber-segment-item {
         padding-left: 14px;
-
         padding-right: 14px;
-
         font-size: 11.5px;
     }
-
 
     .visitor-language-wrapper {
         margin-left: 20px;
     }
 
-
     .language-option {
         min-width: 56px;
-
-        padding:
-            8px 10px;
+        padding: 8px 10px;
     }
-
 }
 
-
 /* =========================================================
-   DESKTOP
-   1200px - 1439px
+   DESKTOP (1200px - 1439px)
    ========================================================= */
 
 @media (min-width: 1200px) and (max-width: 1439px) {
-
     .visitor-navbar {
         padding-left: 40px;
         padding-right: 40px;
     }
 
-
-    .rubber-segment {
+    .visitor-nav .rubber-segment {
         gap: 2px;
     }
 
-
-    .rubber-segment-item {
+    .visitor-nav .rubber-segment-item {
         padding-left: 10px;
-
         padding-right: 10px;
-
         font-size: 10.8px;
     }
-
 
     .visitor-language-wrapper {
         margin-left: 14px;
     }
 
-
     .language-option {
         min-width: 52px;
-
-        padding:
-            7px 7px;
+        padding: 7px 7px;
     }
-
 }
 
-
 /* =========================================================
-   SMALL DESKTOP / LAPTOP
-   901px - 1199px
+   SMALL DESKTOP / LAPTOP (901px - 1199px)
    ========================================================= */
 
 @media (min-width: 901px) and (max-width: 1199px) {
-
     .visitor-navbar {
-        padding:
-            16px 28px;
+        padding: 16px 28px;
     }
-
-
-    .visitor-navbar-inner {
-        width: 100%;
-    }
-
 
     .visitor-logo {
         font-size: 20px;
-
         letter-spacing: 0.14em;
     }
 
-
-    .visitor-nav {
-        margin-left: auto;
-
-        min-width: 0;
-    }
-
-
-    .rubber-segment {
+    .visitor-nav .rubber-segment {
         gap: 1px;
-
         padding: 3px;
     }
 
-
-    .rubber-segment-item {
-        padding:
-            8px 7px;
-
+    .visitor-nav .rubber-segment-item {
+        padding: 8px 7px;
         min-height: 36px;
-
         font-size: 9.5px;
-
         letter-spacing: 0;
     }
-
 
     .visitor-language-wrapper {
         margin-left: 9px;
     }
 
-
     .language-switcher {
         gap: 2px;
     }
 
-
     .language-option {
         min-width: 45px;
-
         gap: 4px;
-
-        padding:
-            6px 5px;
-
+        padding: 6px 5px;
         font-size: 9px;
     }
 
-
     .language-flag {
         width: 15px;
-
         height: 15px;
-
         font-size: 13px;
     }
-
 
     .language-code {
         font-size: 9px;
     }
 
-
     .language-separator {
         font-size: 10px;
     }
-
 }
 
-
 /* =========================================================
-   TABLET
-   769px - 900px
+   TABLET (769px - 900px)
    ========================================================= */
 
 @media (min-width: 769px) and (max-width: 900px) {
-
     .visitor-navbar {
-        padding:
-            14px 20px;
+        padding: 14px 20px;
     }
-
 
     .visitor-logo {
         font-size: 18px;
-
         letter-spacing: 0.12em;
     }
 
-
-    .visitor-nav {
-        margin-left: auto;
-
-        min-width: 0;
-    }
-
-
-    .rubber-segment {
+    .visitor-nav .rubber-segment {
         gap: 1px;
-
         padding: 3px;
     }
 
-
-    .rubber-segment-item {
-        padding:
-            7px 5px;
-
+    .visitor-nav .rubber-segment-item {
+        padding: 7px 5px;
         min-height: 34px;
-
         font-size: 8.5px;
-
         letter-spacing: 0;
     }
-
 
     .visitor-language-wrapper {
         margin-left: 7px;
     }
 
-
     .language-switcher {
         gap: 1px;
     }
-
 
     .language-option {
         min-width: 42px;
-
         gap: 3px;
-
-        padding:
-            6px 4px;
-
+        padding: 6px 4px;
         font-size: 8.5px;
     }
-
 
     .language-flag {
         width: 14px;
-
         height: 14px;
-
         font-size: 12px;
     }
-
 
     .language-code {
         font-size: 8.5px;
     }
 
-
     .language-separator {
         font-size: 9px;
     }
-
 }
 
-
 /* =========================================================
-   MOBILE
-   <= 768px
+   MOBILE NAVBAR (<= 768px)
    ========================================================= */
 
 @media (max-width: 768px) {
-
     .visitor-navbar {
-        padding:
-            12px 14px;
+        padding: 12px 18px;
+        padding-top: calc(12px + env(safe-area-inset-top, 0px));
+        background: rgba(14, 6, 9, 0.82);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     }
-
 
     .visitor-navbar-inner {
         width: 100%;
-
         display: flex;
-
         align-items: center;
-
-        justify-content: flex-end;
-
-        gap: 0;
+        justify-content: space-between;
+        gap: 12px;
     }
-
-
-    /* ---------------------------------------------------------
-       LOGO
-       --------------------------------------------------------- */
 
     .visitor-logo {
-        display: none;
+        display: inline-flex;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        color: #ffffff;
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     }
 
-
-    /* ---------------------------------------------------------
-       NAVIGATION
-       --------------------------------------------------------- */
-
+    /* Sembunyikan RubberSegment desktop di mobile */
+    .visitor-nav-desktop,
     .visitor-nav {
-        flex: 1;
-
-        min-width: 0;
-
-        width: auto;
-
-        max-width: none;
-
-        margin-left: 0;
-
-        margin-right: 6px;
-
-        display: flex;
-
-        justify-content: flex-end;
+        display: none !important;
     }
 
-
-    .rubber-segment {
-        width: 100%;
-
+    .visitor-navbar-actions {
         display: flex;
-
         align-items: center;
-
-        justify-content: space-between;
-
-        gap: 1px;
-
-        padding: 3px;
-
-        box-sizing: border-box;
-    }
-
-
-    .rubber-segment-item {
-        flex: 1;
-
-        min-width: 0;
-
-        min-height: 33px;
-
-        padding:
-            6px 3px;
-
-        font-size: 8px;
-
-        letter-spacing: 0;
-
-        overflow: hidden;
-
-        text-overflow: ellipsis;
-    }
-
-
-    /* ---------------------------------------------------------
-       LANGUAGE
-       --------------------------------------------------------- */
-
-    .visitor-language-wrapper {
+        gap: 8px;
         flex-shrink: 0;
-
-        margin-left: 0;
     }
-
-
-    .language-switcher {
-        gap: 1px;
-    }
-
-
-    .language-option {
-        min-width: 39px;
-
-        gap: 3px;
-
-        padding:
-            6px 3px;
-
-        font-size: 8px;
-    }
-
-
-    .language-flag {
-        width: 13px;
-
-        height: 13px;
-
-        font-size: 11px;
-    }
-
-
-    .language-code {
-        font-size: 8px;
-    }
-
-
-    .language-separator {
-        font-size: 9px;
-
-        margin: 0;
-    }
-
-}
-
-
-/* =========================================================
-   SMALL MOBILE
-   <= 520px
-   ========================================================= */
-
-@media (max-width: 520px) {
-
-    .visitor-navbar {
-        padding:
-            10px 8px;
-    }
-
-
-    .visitor-navbar-inner {
-        justify-content: flex-end;
-    }
-
-
-    .visitor-nav {
-        margin-right: 4px;
-    }
-
-
-    .rubber-segment {
-        padding: 2px;
-
-        gap: 0;
-    }
-
-
-    .rubber-segment-item {
-        min-height: 31px;
-
-        padding:
-            5px 1px;
-
-        font-size: 7px;
-
-        letter-spacing: -0.01em;
-    }
-
 
     .visitor-language-wrapper {
         margin-left: 0;
     }
 
-
     .language-option {
-        min-width: 35px;
-
-        gap: 2px;
-
-        padding:
-            5px 2px;
-
-        font-size: 7px;
-    }
-
-
-    .language-flag {
-        width: 12px;
-
-        height: 12px;
-
-        font-size: 10px;
-    }
-
-
-    .language-code {
-        font-size: 7px;
-
-        letter-spacing: 0.03em;
-    }
-
-
-    .language-separator {
-        font-size: 8px;
-    }
-
-}
-
-
-/* =========================================================
-   VERY SMALL MOBILE
-   <= 380px
-   ========================================================= */
-
-@media (max-width: 380px) {
-
-    .visitor-navbar {
-        padding:
-            8px 5px;
-    }
-
-
-    .visitor-nav {
-        margin-right: 3px;
-    }
-
-
-    .rubber-segment {
-        padding: 2px;
-
-        gap: 0;
-    }
-
-
-    .rubber-segment-item {
-        min-height: 29px;
-
-        padding:
-            4px 0;
-
-        font-size: 6.5px;
-
-        letter-spacing: -0.02em;
-    }
-
-
-    .language-option {
-        min-width: 32px;
-
-        padding:
-            4px 1px;
-    }
-
-
-    .language-flag {
-        width: 11px;
-
-        height: 11px;
-
+        min-width: 44px;
+        padding: 6px 8px;
         font-size: 9px;
     }
 
-
-    .language-code {
-        font-size: 6.5px;
+    .language-flag {
+        width: 14px;
+        height: 14px;
+        font-size: 12px;
     }
 
+    /* ---------------- HAMBURGER ---------------- */
 
-    .language-separator {
-        font-size: 7px;
+    .visitor-mobile-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        max-width: 40px;
+        padding: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        background: rgba(61, 20, 30, 0.88);
+        color: #ffffff;
+        cursor: pointer;
+        outline: none;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        transition:
+            background-color 0.25s ease,
+            transform 0.2s ease,
+            border-color 0.25s ease;
     }
 
+    .visitor-mobile-toggle:hover,
+    .visitor-mobile-toggle:active {
+        background: rgba(90, 28, 40, 0.96);
+        border-color: rgba(255, 255, 255, 0.4);
+        transform: scale(1.05);
+    }
+
+    .visitor-mobile-toggle:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.75);
+        outline-offset: 3px;
+    }
+
+    /* ---------------- BACKDROP ----------------
+       z-index 9990 < navbar 9999, jadi logo & tombol
+       TIDAK ikut ter-blur. */
+
+    .visitor-mobile-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            opacity 0.3s ease,
+            visibility 0.3s ease;
+        z-index: 9990;
+    }
+
+    .visitor-mobile-backdrop.is-visible {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    /* ---------------- PANEL ----------------
+       z-index 9995: di atas backdrop, di bawah navbar. */
+
+    .visitor-mobile-panel {
+        display: block;
+        position: fixed;
+        top: calc(68px + env(safe-area-inset-top, 0px));
+        left: 14px;
+        right: 14px;
+        max-height: calc(100dvh - 90px);
+        overflow-y: auto;
+        background: rgba(20, 7, 11, 0.97);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 20px;
+        padding: 16px 14px 18px 14px;
+        box-shadow:
+            0 24px 50px rgba(0, 0, 0, 0.7),
+            0 0 0 1px rgba(90, 28, 40, 0.4),
+            inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        transform: translateY(-14px) scale(0.97);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition:
+            transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+            opacity 0.25s ease,
+            visibility 0.25s ease;
+        z-index: 9995;
+    }
+
+    .visitor-mobile-panel.is-open {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .visitor-mobile-panel-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px 6px 12px 6px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 8px;
+    }
+
+    .visitor-mobile-panel-tag {
+        font-family: 'Inter', sans-serif;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        color: rgba(255, 255, 255, 0.45);
+    }
+
+    .visitor-mobile-panel-status {
+        font-family: 'Inter', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        color: #ff859c;
+        background: rgba(255, 133, 156, 0.14);
+        border: 1px solid rgba(255, 133, 156, 0.25);
+        padding: 3px 10px;
+        border-radius: 999px;
+    }
+
+    .visitor-mobile-menu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .visitor-mobile-menu-item {
+        margin: 0;
+        padding: 0;
+    }
+
+    .visitor-mobile-menu-btn {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 14px;
+        border-radius: 14px;
+        border: 1px solid transparent;
+        background: transparent;
+        color: rgba(255, 255, 255, 0.82);
+        font-family: 'Manrope', 'Inter', sans-serif;
+        font-size: 14.5px;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: left;
+        outline: none;
+        transition:
+            background-color 0.2s ease,
+            color 0.2s ease,
+            transform 0.15s ease,
+            border-color 0.2s ease;
+    }
+
+    .visitor-mobile-menu-btn:focus-visible {
+        outline: 2px solid rgba(255, 255, 255, 0.75);
+        outline-offset: 2px;
+    }
+
+    .visitor-mobile-item-index {
+        font-family: 'Inter', sans-serif;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.35);
+        min-width: 22px;
+    }
+
+    .visitor-mobile-item-label {
+        flex: 1;
+        letter-spacing: 0.01em;
+    }
+
+    .visitor-mobile-menu-btn:hover {
+        background: rgba(255, 255, 255, 0.07);
+        color: #ffffff;
+        transform: translateX(3px);
+    }
+
+    .visitor-mobile-menu-btn.is-active {
+        background: linear-gradient(
+            135deg,
+            rgba(86, 28, 36, 0.95),
+            rgba(61, 20, 30, 0.95)
+        );
+        border-color: rgba(255, 255, 255, 0.16);
+        color: #ffffff;
+        box-shadow:
+            0 4px 16px rgba(0, 0, 0, 0.35),
+            inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    }
+
+    .visitor-mobile-menu-btn.is-active .visitor-mobile-item-index {
+        color: #ff859c;
+    }
+
+    .visitor-mobile-active-indicator {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #ff5e7e;
+        box-shadow: 0 0 10px #ff5e7e;
+    }
+}
+
+/* =========================================================
+   MOBILE KECIL (<= 360px)
+   ========================================================= */
+
+@media (max-width: 360px) {
+    .visitor-navbar {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .visitor-logo {
+        font-size: 17px;
+        letter-spacing: 0.12em;
+    }
+
+    .visitor-navbar-actions {
+        gap: 6px;
+    }
+
+    .language-option {
+        min-width: 38px;
+        padding: 5px 6px;
+    }
+
+    .visitor-mobile-toggle {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        max-width: 36px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .visitor-mobile-panel,
+    .visitor-mobile-backdrop,
+    .visitor-mobile-menu-btn,
+    .visitor-mobile-toggle {
+        transition: none;
+    }
 }

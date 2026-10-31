@@ -42,6 +42,14 @@ Route::get('/contact', function () {
     return view('app');
 })->name('contact');
 
+Route::get('/experience/gmail.png', function () {
+    $path = public_path('image/gmail.png');
+    if (file_exists($path)) {
+        return response()->file($path);
+    }
+    abort(404);
+});
+
 // Login Page
 Route::get('/login', function () {
     return view('app');

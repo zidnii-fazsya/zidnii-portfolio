@@ -1,5 +1,11 @@
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useState,
+} from 'react';
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { Menu, X } from 'lucide-react';
 
 import '../../css/visitor-navbar.css';
 
@@ -14,37 +20,32 @@ const menuItems = [
     'Education',
     'Skills',
     'Projects',
-    'Contact',
 ];
 
 const sectionIds = [
-    '#home',
-    '#about',
-    '#experience',
-    '#education',
-    '#skills',
-    '#projects',
-    '#contact',
+    'home',
+    'about',
+    'experience',
+    'education',
+    'skills',
+    'projects',
 ];
 
+/*
+| Menangani beberapa kemungkinan format nilai yang dikirim RubberSegment:
+| String, Number, { value }, { index }
+*/
 function resolveMenuIndex(value, index) {
-    // Gunakan index jika RubberSegment memang mengirimkannya.
-    if (
-        Number.isInteger(index) &&
-        index >= 0 &&
-        index < menuItems.length
-    ) {
-        return index;
-    }
-
-    // Jika callback hanya mengirim nama menu.
     if (typeof value === 'string') {
-        return menuItems.findIndex(
+        const matchedIndex = menuItems.findIndex(
             (item) => item.toLowerCase() === value.toLowerCase()
         );
+
+        if (matchedIndex !== -1) {
+            return matchedIndex;
+        }
     }
 
-    // Mendukung callback yang mengirim angka sebagai nilai.
     if (
         typeof value === 'number' &&
         Number.isInteger(value) &&
@@ -54,13 +55,16 @@ function resolveMenuIndex(value, index) {
         return value;
     }
 
-    // Mendukung object yang berisi value atau index.
     if (value && typeof value === 'object') {
         if (typeof value.value === 'string') {
-            return menuItems.findIndex(
+            const matchedIndex = menuItems.findIndex(
                 (item) =>
                     item.toLowerCase() === value.value.toLowerCase()
             );
+
+            if (matchedIndex !== -1) {
+                return matchedIndex;
+            }
         }
 
         if (
@@ -72,161 +76,219 @@ function resolveMenuIndex(value, index) {
         }
     }
 
+    if (
+        Number.isInteger(index) &&
+        index >= 0 &&
+        index < menuItems.length
+    ) {
+        return index;
+    }
+
     return -1;
 }
 
 export default function VisitorNavbar() {
     const { t } = useLanguage();
+
     const [activeMenu, setActiveMenu] = useState('Home');
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     const navItems = useMemo(() => {
+        const navTranslations = t?.nav || {};
+
         return menuItems.map((item) => ({
             value: item,
-            label: t.nav[item] || item,
+            label: navTranslations[item] || item,
         }));
     }, [t]);
 
     const activeIndex = menuItems.indexOf(activeMenu);
 
-    /*
-    |--------------------------------------------------------------------------
-    | NAVIGATION HANDLER
-    |--------------------------------------------------------------------------
-    */
+    /* ---------------- SCROLL TO SECTION ---------------- */
 
-    const handleNavigation = useCallback((value, index) => {
-        const resolvedIndex = resolveMenuIndex(value, index);
+    const scrollToSection = useCallback((sectionId) => {
+        const target = document.getElementById(sectionId);
 
-        if (resolvedIndex < 0) {
+        if (!target) {
             console.warn(
-                'RubberSegment mengirim nilai menu yang tidak dikenali:',
-                value,
-                index
+                `Section dengan ID "${sectionId}" tidak ditemukan.`
             );
-            return;
+
+            return false;
         }
 
-        const selectedMenu = menuItems[resolvedIndex];
-        const selectedSection = sectionIds[resolvedIndex];
+        target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+        });
 
-        setActiveMenu(selectedMenu);
+        window.history.replaceState(null, '', `#${sectionId}`);
 
-        const target = document.querySelector(selectedSection);
-
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-            });
-
-            // Perbarui URL tanpa memuat ulang halaman.
-            window.history.replaceState(
-                null,
-                '',
-                selectedSection
-            );
-        } else {
-            console.warn(
-                `Bagian ${selectedSection} tidak ditemukan. Pastikan ID section sesuai.`
-            );
-        }
+        return true;
     }, []);
 
-    /*
-    |--------------------------------------------------------------------------
-    | LOGO HANDLER
-    |--------------------------------------------------------------------------
-    */
+    /* ---------------- NAVIGATION HANDLER ---------------- */
 
-    const handleLogoClick = useCallback((event) => {
-        event.preventDefault();
+    const handleNavigation = useCallback(
+        (value, index) => {
+            const resolvedIndex = resolveMenuIndex(value, index);
 
-        setActiveMenu('Home');
+            if (resolvedIndex === -1) {
+                console.warn(
+                    'RubberSegment mengirim nilai menu yang tidak dikenali:',
+                    value,
+                    index
+                );
 
-        const target = document.querySelector('#home');
+                return;
+            }
 
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-            });
+            const selectedMenu = menuItems[resolvedIndex];
+            const selectedSection = sectionIds[resolvedIndex];
 
-            window.history.replaceState(null, '', '#home');
-        }
+            setActiveMenu(selectedMenu);
+            setIsMobileMenuOpen(false);
+
+            scrollToSection(selectedSection);
+        },
+        [scrollToSection]
+    );
+
+    /* ---------------- LOGO ---------------- */
+
+    const handleLogoClick = useCallback(
+        (event) => {
+            event.preventDefault();
+
+            setActiveMenu('Home');
+            setIsMobileMenuOpen(false);
+
+            scrollToSection('home');
+        },
+        [scrollToSection]
+    );
+
+    /* ---------------- MOBILE MENU ---------------- */
+
+    const toggleMobileMenu = useCallback(() => {
+        setIsMobileMenuOpen((previous) => !previous);
     }, []);
 
-    /*
-    |--------------------------------------------------------------------------
-    | SCROLL SPY
-    |--------------------------------------------------------------------------
-    */
+    const closeMobileMenu = useCallback(() => {
+        setIsMobileMenuOpen(false);
+    }, []);
+
+    /* Tutup menu saat resize ke desktop atau tekan Escape */
 
     useEffect(() => {
-        if (!('IntersectionObserver' in window)) {
-            return undefined;
+        const handleResize = () => {
+            if (window.innerWidth > 768) {
+                setIsMobileMenuOpen(false);
+            }
+        };
+
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setIsMobileMenuOpen(false);
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
+
+    /* Kunci scroll body saat menu mobile terbuka */
+
+    useEffect(() => {
+        const previousOverflow = document.body.style.overflow;
+
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
         }
 
-        const sections = sectionIds
-            .map((id) => document.querySelector(id))
-            .filter(Boolean);
+        return () => {
+            document.body.style.overflow = previousOverflow;
+        };
+    }, [isMobileMenuOpen]);
 
-        if (sections.length === 0) {
-            return undefined;
-        }
+    /* ---------------- SCROLL SPY ---------------- */
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                const visibleSections = entries
-                    .filter((entry) => entry.isIntersecting)
-                    .sort(
-                        (a, b) =>
-                            b.intersectionRatio - a.intersectionRatio
-                    );
+    useEffect(() => {
+        let animationFrame = null;
 
-                if (visibleSections.length === 0) {
+        const updateActiveSection = () => {
+            const navbar = document.querySelector('.visitor-navbar');
+
+            const navbarHeight = navbar
+                ? navbar.getBoundingClientRect().height
+                : 0;
+
+            const activationPoint = navbarHeight + 100;
+
+            let currentSection = sectionIds[0];
+
+            sectionIds.forEach((sectionId) => {
+                const section = document.getElementById(sectionId);
+
+                if (!section) {
                     return;
                 }
 
-                const activeSection =
-                    visibleSections[0].target.id;
-
-                const activeIndex = sectionIds.findIndex(
-                    (sectionId) =>
-                        sectionId === `#${activeSection}`
-                );
-
-                if (activeIndex !== -1) {
-                    setActiveMenu(menuItems[activeIndex]);
+                if (section.getBoundingClientRect().top <= activationPoint) {
+                    currentSection = sectionId;
                 }
-            },
-            {
-                root: null,
-                rootMargin: '-25% 0px -60% 0px',
-                threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+            });
+
+            const currentIndex = sectionIds.indexOf(currentSection);
+
+            if (currentIndex !== -1) {
+                setActiveMenu((previous) => {
+                    const nextMenu = menuItems[currentIndex];
+
+                    return previous === nextMenu ? previous : nextMenu;
+                });
             }
-        );
+        };
 
-        sections.forEach((section) => observer.observe(section));
+        const handleScroll = () => {
+            if (animationFrame !== null) {
+                window.cancelAnimationFrame(animationFrame);
+            }
 
-        return () => observer.disconnect();
+            animationFrame = window.requestAnimationFrame(
+                updateActiveSection
+            );
+        };
+
+        updateActiveSection();
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleScroll);
+
+            if (animationFrame !== null) {
+                window.cancelAnimationFrame(animationFrame);
+            }
+        };
     }, []);
 
-    /*
-    |--------------------------------------------------------------------------
-    | INITIAL HASH AND HASH CHANGES
-    |--------------------------------------------------------------------------
-    */
+    /* ---------------- HASH SYNC ---------------- */
 
     useEffect(() => {
         const syncHash = () => {
-            const currentHash = window.location.hash;
+            const currentHash = window.location.hash.replace('#', '');
+            const currentIndex = sectionIds.indexOf(currentHash);
 
-            const activeIndex = sectionIds.findIndex(
-                (sectionId) => sectionId === currentHash
-            );
-
-            if (activeIndex !== -1) {
-                setActiveMenu(menuItems[activeIndex]);
+            if (currentIndex !== -1) {
+                setActiveMenu(menuItems[currentIndex]);
             }
         };
 
@@ -239,61 +301,140 @@ export default function VisitorNavbar() {
         };
     }, []);
 
-    /*
-    |--------------------------------------------------------------------------
-    | RENDER
-    |--------------------------------------------------------------------------
-    */
+    /* ---------------- RENDER ---------------- */
 
     return (
-        <header className="visitor-navbar">
-            <div className="visitor-navbar-inner">
-                {/* LOGO */}
+        <>
+            <header
+                className={
+                    isMobileMenuOpen
+                        ? 'visitor-navbar is-mobile-open'
+                        : 'visitor-navbar'
+                }
+            >
+                <div className="visitor-navbar-inner">
+                    {/* LOGO */}
+                    <a
+                        href="#home"
+                        className="visitor-logo"
+                        onClick={handleLogoClick}
+                        aria-label="Go to Home"
+                    >
+                        ZIDNII
+                    </a>
 
-                <a
-                    href="#home"
-                    className="visitor-logo"
-                    onClick={handleLogoClick}
-                    aria-label="Go to Home"
-                >
-                    ZIDNII
-                </a>
+                    {/* DESKTOP NAVIGATION */}
+                    <nav
+                        className="visitor-nav visitor-nav-desktop"
+                        aria-label="Main navigation"
+                    >
+                        <RubberSegment
+                            items={navItems}
+                            activeIndex={activeIndex >= 0 ? activeIndex : 0}
+                            onChange={handleNavigation}
+                        />
+                    </nav>
 
-                {/* MAIN NAVIGATION */}
+                    {/* ACTIONS */}
+                    <div className="visitor-navbar-actions">
+                        <div className="visitor-language-wrapper">
+                            <LanguageSwitcher />
+                        </div>
 
-                <nav
-                    className="visitor-nav"
-                    aria-label="Main navigation"
-                >
-                    <RubberSegment
-                        items={navItems}
-                        activeIndex={activeIndex >= 0 ? activeIndex : 0}
-                        value={activeMenu}
-                        defaultValue="Home"
-                        onChange={handleNavigation}
-                        trackColor="transparent"
-                        thumbColor="#3d141e"
-                        textColor="rgba(255, 255, 255, 0.72)"
-                        activeTextColor="#ffffff"
-                        size="md"
-                        radius={999}
-                        inset={3}
-                        equalSlots
-                        stretch={100}
-                        squash={3}
-                        speed={1}
-                        glide={75}
-                        draggable
-                        disabled={false}
-                    />
-                </nav>
-
-                {/* LANGUAGE SWITCHER */}
-
-                <div className="visitor-language-wrapper">
-                    <LanguageSwitcher />
+                        <button
+                            type="button"
+                            className="visitor-mobile-toggle"
+                            onClick={toggleMobileMenu}
+                            aria-label={
+                                isMobileMenuOpen
+                                    ? 'Tutup navigasi'
+                                    : 'Buka navigasi'
+                            }
+                            aria-expanded={isMobileMenuOpen}
+                        >
+                            {isMobileMenuOpen ? (
+                                <X size={21} aria-hidden="true" />
+                            ) : (
+                                <Menu size={21} aria-hidden="true" />
+                            )}
+                        </button>
+                    </div>
                 </div>
+            </header>
+
+            {/*
+              Backdrop & panel sengaja BERADA DI LUAR <header>.
+              Jika di dalam header yang punya backdrop-filter, elemen
+              position: fixed akan berpatokan ke header, bukan ke layar.
+            */}
+
+            <div
+                className={
+                    isMobileMenuOpen
+                        ? 'visitor-mobile-backdrop is-visible'
+                        : 'visitor-mobile-backdrop'
+                }
+                onClick={closeMobileMenu}
+                aria-hidden="true"
+            />
+
+            {/* Pakai <div>, bukan <nav>, agar tidak terkena `.visitor-home nav` */}
+            <div
+                className={
+                    isMobileMenuOpen
+                        ? 'visitor-mobile-panel is-open'
+                        : 'visitor-mobile-panel'
+                }
+                role="navigation"
+                aria-label="Navigasi mobile"
+                aria-hidden={!isMobileMenuOpen}
+            >
+                <div className="visitor-mobile-panel-header">
+                    <span className="visitor-mobile-panel-tag">MENU</span>
+
+                    <span className="visitor-mobile-panel-status">
+                        {activeMenu}
+                    </span>
+                </div>
+
+                <ul className="visitor-mobile-menu-list">
+                    {navItems.map((item, index) => {
+                        const isActive = menuItems[index] === activeMenu;
+
+                        return (
+                            <li
+                                key={item.value}
+                                className="visitor-mobile-menu-item"
+                            >
+                                <button
+                                    type="button"
+                                    className={
+                                        isActive
+                                            ? 'visitor-mobile-menu-btn is-active'
+                                            : 'visitor-mobile-menu-btn'
+                                    }
+                                    onClick={() =>
+                                        handleNavigation(item.value, index)
+                                    }
+                                    tabIndex={isMobileMenuOpen ? 0 : -1}
+                                >
+                                    <span className="visitor-mobile-item-index">
+                                        {String(index + 1).padStart(2, '0')}
+                                    </span>
+
+                                    <span className="visitor-mobile-item-label">
+                                        {item.label}
+                                    </span>
+
+                                    {isActive && (
+                                        <span className="visitor-mobile-active-indicator" />
+                                    )}
+                                </button>
+                            </li>
+                        );
+                    })}
+                </ul>
             </div>
-        </header>
+        </>
     );
 }

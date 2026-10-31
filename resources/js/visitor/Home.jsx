@@ -10,7 +10,6 @@ import Experience from './Experience';
 import VisitorEducation from './Education';
 import VisitorSkills from './Skills';
 import Projects from './Projects';
-import Contact from './Contact';
 
 import useLanguage from '../utils/useLanguage';
 
@@ -23,7 +22,7 @@ import useLanguage from '../utils/useLanguage';
 */
 
 const HERO_DESCRIPTION_ID =
-    'Lulusan Sistem Informasi yang memiliki pengalaman dalam pengembangan web (Fullstack Web Developer), desain UI/UX, dan analisis sistem. Memiliki semangat untuk menciptakan aplikasi web yang fungsional dan mudah digunakan serta berkontribusi dalam koordinasi proyek IT yang efektif.';
+    'Lulusan D3 Sistem Informasi Telkom University dengan IPK 3,54 dan pengalaman dalam pengembangan aplikasi web, desain UI/UX, serta analisis sistem. Memiliki minat pada Web Development, System Analysis, dan IT Project Management, dengan ketertarikan dalam membangun solusi digital yang fungsional dan berorientasi pada kebutuhan pengguna, sekaligus mendukung perencanaan dan koordinasi proyek IT secara efektif.';
 
 const HERO_DESCRIPTION_EN =
     'Information Systems graduate with experience in web development (Fullstack Web Developer), UI/UX design, and system analysis. Passionate about building functional, easy-to-use web applications and contributing to effective IT project coordination.';
@@ -182,8 +181,12 @@ const Home = () => {
             return '/image/ig.webp';
         }
 
-        if (value.includes('whatsapp')) {
+        if (value.includes('whatsapp') || value.includes('wa')) {
             return '/image/wa.jpeg';
+        }
+
+        if (value.includes('gmail') || value.includes('email') || value.includes('mail')) {
+            return '/image/gmail.png';
         }
 
         return null;
@@ -212,6 +215,15 @@ const Home = () => {
     };
 
     const getSocialUrl = (item) => {
+        const platform = String(item?.platform || item?.name || '').toLowerCase();
+        if (platform.includes('gmail') || platform.includes('mail')) {
+            return (
+                item.url ||
+                item.link ||
+                'https://mail.google.com/mail/?view=cm&fs=1&to=zidniilulufazsya@gmail.com'
+            );
+        }
+
         return (
             item.url ||
             item.link ||
@@ -220,6 +232,42 @@ const Home = () => {
             ''
         );
     };
+
+    /*
+    |--------------------------------------------------------------------------
+    | GMAIL & SOCIAL MEDIA LIST RESOLUTION
+    |--------------------------------------------------------------------------
+    */
+
+    const displaySocialMedia = React.useMemo(() => {
+        const items = [...socialMedia];
+        const hasGmail = items.some((item) => {
+            const val = String(item.platform || item.name || '').toLowerCase();
+            return val.includes('gmail') || val.includes('mail');
+        });
+
+        if (!hasGmail) {
+            const waIndex = items.findIndex((item) => {
+                const val = String(item.platform || item.name || '').toLowerCase();
+                return val.includes('whatsapp') || val.includes('wa');
+            });
+
+            const gmailItem = {
+                id: 'direct-gmail',
+                platform: 'Gmail',
+                name: 'Gmail',
+                url: 'https://mail.google.com/mail/?view=cm&fs=1&to=zidniilulufazsya@gmail.com',
+            };
+
+            if (waIndex !== -1) {
+                items.splice(waIndex + 1, 0, gmailItem);
+            } else {
+                items.push(gmailItem);
+            }
+        }
+
+        return items;
+    }, [socialMedia]);
 
     /*
     |--------------------------------------------------------------------------
@@ -311,7 +359,9 @@ const Home = () => {
                             </a>
 
                             <a
-                                href="#contact"
+                                href="https://mail.google.com/mail/?view=cm&fs=1&to=zidniilulufazsya@gmail.com"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="visitor-secondary-button"
                             >
                                 {isEnglish
@@ -353,7 +403,7 @@ const Home = () => {
 
                         {/* SOCIAL MEDIA */}
 
-                        {socialMedia.length > 0 && (
+                        {displaySocialMedia.length > 0 && (
                             <div className="visitor-hero-socials">
                                 <p className="visitor-socials-label">
                                     {isEnglish
@@ -362,7 +412,7 @@ const Home = () => {
                                 </p>
 
                                 <div className="visitor-socials-list">
-                                    {socialMedia.map((item, index) => {
+                                    {displaySocialMedia.map((item, index) => {
                                         const platform =
                                             item.platform ||
                                             item.name ||
@@ -382,8 +432,9 @@ const Home = () => {
                                         return (
                                             <a
                                                 key={
-                                                    item.id ??
-                                                    `${platform}-${index}`
+                                                    (item.id !== null && item.id !== undefined && item.id !== false)
+                                                        ? String(item.id)
+                                                        : `${platform}-${index}`
                                                 }
                                                 href={url}
                                                 target="_blank"
@@ -399,6 +450,12 @@ const Home = () => {
                                                         aria-hidden="true"
                                                         className="visitor-social-image"
                                                         loading="lazy"
+                                                        onError={(e) => {
+                                                            if (!e.currentTarget.dataset.retried && String(platform).toLowerCase().includes('gmail')) {
+                                                                e.currentTarget.dataset.retried = 'true';
+                                                                e.currentTarget.src = '/image/gmail.png';
+                                                            }
+                                                        }}
                                                     />
                                                 ) : (
                                                     <Icon size={20} />
@@ -419,52 +476,38 @@ const Home = () => {
 
                     <div className="visitor-hero-photo-wrapper">
                         <div className="visitor-hero-photo-scene">
+                            {/* FOTO DEPAN */}
+
                             <div
-                                className={[
-                                    'visitor-hero-photo-card',
-                                    isFlipped
-                                        ? 'is-flipped'
-                                        : '',
-                                ].filter(Boolean).join(' ')}
-                                style={{
-                                    transform: isFlipped
-                                        ? 'rotateY(180deg)'
-                                        : 'rotateY(0deg)',
-                                    transition:
-                                        'transform 1s ease-in-out',
-                                }}
+                                className="visitor-hero-photo-face visitor-hero-photo-front"
+                                style={{ opacity: isFlipped ? 0 : 1 }}
                             >
-                                {/* FOTO DEPAN */}
+                                <img
+                                    src="/image/me.jpeg"
+                                    alt={displayName}
+                                    loading="eager"
+                                    decoding="async"
+                                    onError={(event) => {
+                                        event.currentTarget.style.display = 'none';
+                                    }}
+                                />
+                            </div>
 
-                                <div className="visitor-hero-photo-face visitor-hero-photo-front">
-                                    <img
-                                        src="/image/me.jpeg"
-                                        alt={displayName}
-                                        loading="eager"
-                                        onError={(event) => {
-                                            console.error(
-                                                'Foto me.jpeg gagal dimuat:',
-                                                event.currentTarget.src
-                                            );
-                                        }}
-                                    />
-                                </div>
+                            {/* FOTO BELAKANG */}
 
-                                {/* FOTO BELAKANG */}
-
-                                <div className="visitor-hero-photo-face visitor-hero-photo-back">
-                                    <img
-                                        src="/image/mee.jpeg"
-                                        alt={`${displayName} - foto kedua`}
-                                        loading="eager"
-                                        onError={(event) => {
-                                            console.error(
-                                                'Foto mee.jpeg gagal dimuat:',
-                                                event.currentTarget.src
-                                            );
-                                        }}
-                                    />
-                                </div>
+                            <div
+                                className="visitor-hero-photo-face visitor-hero-photo-back"
+                                style={{ opacity: isFlipped ? 1 : 0 }}
+                            >
+                                <img
+                                    src="/image/meee.jpeg"
+                                    alt={`${displayName} - foto kedua`}
+                                    loading="eager"
+                                    decoding="async"
+                                    onError={(event) => {
+                                        event.currentTarget.style.display = 'none';
+                                    }}
+                                />
                             </div>
                         </div>
 
@@ -521,10 +564,6 @@ const Home = () => {
                 {/* PROJECTS */}
 
                 <Projects />
-
-                {/* CONTACT */}
-
-                <Contact />
             </main>
         </div>
     );

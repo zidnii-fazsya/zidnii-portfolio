@@ -10,6 +10,7 @@ class ExperiencePhoto extends Model
     protected $fillable = [
         'experience_id',
         'image',
+        'original_name',
         'order',
     ];
 

@@ -2651,7 +2651,7 @@ const CircularCarousel = ({
                             }
                         />
 
-                        {gone && (
+                        {gone ? (
                             <img
                                 key={
                                     `leaving-${leaving.id}`
@@ -2675,13 +2675,13 @@ const CircularCarousel = ({
                                         )}ms`
                                 }}
                             />
-                        )}
+                        ) : null}
 
-                        {back && (
+                        {back ? (
                             <div
                                 className="circular-carousel__inner"
                             />
-                        )}
+                        ) : null}
 
                         <div
                             className="circular-carousel__shade"
@@ -2818,7 +2818,7 @@ const CircularCarousel = ({
                                                 )
                                         )}
 
-                                        {layout.backfaces &&
+                                        {layout.backfaces ? (
                                             tiles.map(
                                                 tile =>
                                                     renderTile(
@@ -2827,7 +2827,8 @@ const CircularCarousel = ({
                                                         true,
                                                         index
                                                     )
-                                            )}
+                                            )
+                                        ) : null}
                                     </div>
                                 )
                             )}
@@ -2836,8 +2837,7 @@ const CircularCarousel = ({
                 </div>
             </div>
 
-            {captions &&
-                current && (
+            {captions && current ? (
                     <div
                         className="circular-carousel__caption"
                         aria-hidden="true"
@@ -2851,13 +2851,13 @@ const CircularCarousel = ({
                                 current.alt
                             }
 
-                            {current.subtitle && (
+                            {current.subtitle ? (
                                 <span className="circular-carousel__subtitle">
                                     {
                                         current.subtitle
                                     }
                                 </span>
-                            )}
+                            ) : null}
                         </span>
 
                         <span className="circular-carousel__count">
@@ -2883,7 +2883,7 @@ const CircularCarousel = ({
                             </span>
                         </span>
                     </div>
-                )}
+                ) : null}
 
             <div
                 className="circular-carousel__live"

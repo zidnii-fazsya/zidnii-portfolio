@@ -4,7 +4,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "build:netlify": "vite build --config vite.netlify.config.js"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",

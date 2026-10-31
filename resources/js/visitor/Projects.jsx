@@ -572,7 +572,7 @@ export default function Projects() {
                     >
                         {previewImages.map((item, index) => (
                             <div
-                                key={item.id}
+                                key={item.id != null && item.id !== false ? String(item.id) : `preview-${index}`}
                                 className={`visitor-projects-archive-preview-item visitor-projects-archive-preview-item--${index + 1}`}
                             >
                                 <img
@@ -858,7 +858,7 @@ export default function Projects() {
                                 <div className="visitor-projects-archive-image-grid">
                                     {images.map((item, index) => (
                                         <figure
-                                            key={item.id}
+                                            key={item.id != null && item.id !== false ? String(item.id) : `image-${index}`}
                                             className="visitor-projects-archive-image-card"
                                         >
                                             <a

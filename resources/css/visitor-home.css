@@ -498,36 +498,17 @@ img {
     aspect-ratio: 4 / 5;
     margin: 0;
     padding: 0;
-    perspective: 1200px;
-    -webkit-perspective: 1200px;
-    overflow: visible;
-}
-
-/* =========================================================
-   PHOTO CARD
-========================================================= */
-
-.visitor-home .visitor-hero-photo-card {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    transform: rotateY(0deg);
-    transform-style: preserve-3d;
-    -webkit-transform-style: preserve-3d;
-    transition: transform 0.9s ease-in-out;
+    overflow: hidden;
     border-radius: 18px;
-    will-change: transform;
-}
-
-.visitor-home .visitor-hero-photo-card.is-flipped {
-    transform: rotateY(180deg);
+    border: 2px solid rgba(255, 255, 255, 0.78);
+    background: #160a0d;
+    box-shadow:
+        0 24px 55px rgba(0, 0, 0, 0.48),
+        0 0 0 1px rgba(209, 168, 175, 0.15);
 }
 
 /* =========================================================
-   PHOTO FACES
+   PHOTO FACES (CROSSFADE — lebih kompatibel di mobile)
 ========================================================= */
 
 .visitor-home .visitor-hero-photo-face {
@@ -541,26 +522,19 @@ img {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    border: 2px solid rgba(255, 255, 255, 0.78);
-    border-radius: 18px;
-    background: #160a0d;
-    color: #ffffff;
-    box-shadow:
-        0 24px 55px rgba(0, 0, 0, 0.48),
-        0 0 0 1px rgba(209, 168, 175, 0.15);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
+    border-radius: 0;
+    background: transparent;
+    transition: opacity 0.9s ease-in-out;
 }
 
 .visitor-home .visitor-hero-photo-front {
     z-index: 2;
-    transform: rotateY(0deg);
-    -webkit-transform: rotateY(0deg);
+    opacity: 1;
 }
 
 .visitor-home .visitor-hero-photo-back {
-    transform: rotateY(180deg);
-    -webkit-transform: rotateY(180deg);
+    z-index: 1;
+    opacity: 0;
 }
 
 .visitor-home .visitor-hero-photo-face img {
@@ -1056,7 +1030,7 @@ img {
     .visitor-home .visitor-error button,
     .visitor-home .visitor-social-link,
     .visitor-home .visitor-social-image,
-    .visitor-home .visitor-hero-photo-card {
+    .visitor-home .visitor-hero-photo-face {
         transition: none;
     }
 

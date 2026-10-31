@@ -293,12 +293,15 @@ class ExperienceController extends Controller
                 $experience->id . '-' .
                 Str::uuid() . '.' . $extension;
 
+            $originalName = $file->getClientOriginalName();
+
             $file->move($directory, $filename);
 
             ExperiencePhoto::create([
                 'experience_id' => $experience->id,
                 'image' => 'image/experiences/' .
                     $experience->id . '/' . $filename,
+                'original_name' => $originalName,
                 'order' => $order,
             ]);
 
