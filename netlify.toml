@@ -1,6 +1,41 @@
 [build]
   command = "npm run build:netlify"
-  publish = "public/build"
+  publish = "netlify-dist"
+
+# Laravel API tidak tersedia di Netlify, jadi data diambil dari file JSON statis.
+[[redirects]]
+  from = "/api/profile"
+  to = "/data/profile.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/social-media"
+  to = "/data/social-media.json"
+  status = 200
+  [[redirects]]
+  from = "/api/cv"
+  to = "/data/cv.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/public/skills"
+  to = "/data/skills.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/projects"
+  to = "/data/projects.json"
+  status = 200
+
+  [[redirects]]
+  from = "/api/experiences"
+  to = "/data/experiences.json"
+  status = 200
+
+[[redirects]]
+  from = "/api/educations"
+  to = "/data/educations.json"
+  status = 200
 
 [[redirects]]
   from = "/*"
