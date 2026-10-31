@@ -5,7 +5,7 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "build:netlify": "vite build --config vite.netlify.config.js"
+        "build:netlify": "vite build --config vite.netlify.config.js && node scripts/copy-storage.mjs"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.0.0",
