@@ -1,4 +1,4 @@
-*
+# File dan folder dalam storage/app boleh dilacak Git.
 !private/
 !public/
 !.gitignore
